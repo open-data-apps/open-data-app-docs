@@ -54,7 +54,7 @@ Die Datei `/app_package.json`
   - kurzbeschreibung
   - beschreibung
   - screenshots
-  - apiVersion
+  - apiversion
   - instanz-config: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber
 
 Die in der ODA enthaltenen statischen Dateien sollten
@@ -65,29 +65,39 @@ Beispiel:
 ```
 {
   "app-entwickler": "12343",
-  "app-entwickler-name": "mueller-gmbh",
-  "name-in-url": "telefonbuch",
-  "name": "Telefonbuch",
+  "app-entwickler-name": "ondics-gmbh",
+  "name-in-url": "generic",
+  "name": "Generic Open Data App",
   "version": "1.0.0",
   "odas-app-icon": "assets/odas-app-icon.png",
   "app-icon": "assets/app-icon.png",
-  "kurzbeschreibung": "Telefonbuch mit Bereichauswahl auf Basis von CSV-Dateien",
+  "kurzbeschreibung": "Diese Open Data App ist Anschauungsobjekt und Musterbeispiel für weitere Apps.",
   "beschreibung": [
-    "Das Telefonbuch zeigt Namen, Stellen und Telefonnummern an. Die Daten werden aus einem Open",
-    "Data Portal bezogen und müssen in Form von JPG-Dateien vorliegen.",
-    "Die Daten müssen in einem Open Data Portal",
-    "wie folgt aufgebaut sein: \n",
-    "* Datensatz: Mit allen Telefonbüchern als Ressourcen",
-    "* Ressourcen: Jede Telefonbuch Ressource muss als CSV Datei angelegt werden. Diese müssen folgendem Format entsprechen:",
-    "name, stelle, telefonnummer"
+    "Die Open Data App ist Musterbeispiel für weitere Apps. Inhaltlich macht sie ",
+    "fast nichts, sondern zeigt nur die Config Daten an. ",
+    "Die Daten werden aus einem Open Data Portal bezogen. ",
+    ""
   ],
-  "screenshots": ["assets/Desktop_Screenshot.png", "assets/Mobile_Screenshot.png"],
-  "apiVersion": "1",
+  "screenshots": [
+    "/assets/Desktop_Screenshot.png",
+    "/assets/Mobile_Screenshot.png"
+  ],
+  "api-version": "1",
   "instanz-config": {
     "seitentitel": {
       "label": "Seitentitel",
       "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt",
-      "default": "Telefon-App",
+      "default": "Generic ODA",
+      "format": {
+        "typ": "string",
+        "laenge": 50
+      },
+      "erforderlich": "ja"
+    },
+    "lizenz": {
+      "label": "Lizenz",
+      "hilfe": "Angabe der Lizenz, die für die Nutzung der App gilt.",
+      "default": "Open Software License (OSL)",
       "format": {
         "typ": "string",
         "laenge": 50
@@ -97,7 +107,7 @@ Beispiel:
     "titel": {
       "label": "Titel",
       "hilfe": "Der Titel wird in der Titelzeile der App angezeigt",
-      "default": "Telefonbuch",
+      "default": "Generic Open Data App",
       "format": {
         "typ": "string",
         "laenge": 50
@@ -109,8 +119,8 @@ Beispiel:
       "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt",
       "format": {
         "typ": "image",
-        "hoehe": 64,
-        "breite": 189
+        "hoehe": 100,
+        "breite": 300
       },
       "erforderlich": "ja"
     },
@@ -118,46 +128,72 @@ Beispiel:
       "label": "Kontakt",
       "hilfe": "Der Text wird im Menüpunkt 'Kontakt' anzeigt",
       "format": {
-        "typ": "html"
+        "typ": "markdown"
       },
-      "default": "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a><br>Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a><br>E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>",
+      "default": [
+        "Bei Fragen zur App wenden Sie sich bitte an: ",
+        "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
+        "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
+        "E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>"
+      ],
       "erforderlich": "ja"
     },
     "beschreibung": {
       "label": "Beschreibung",
       "hilfe": "Der Text wird im Menüpunkt 'Über diese App' anzeigt",
       "format": {
-        "typ": "html"
+        "typ": "markdown"
       },
-      "default": "Die Telefonbuch-App zeigt die Namen, Stellen und Telefonnummern für ausgewählte Telefondatensätze.\nDie Daten werden tagesaktuell gehalten. Bei Änderungen versuchen wir, den Datenbestend immer sofort zu aktualisieren. \n##App-Anbieter\nDie App wird bereit gestellt von <a href=\"{{anbieter.url}}\"><{{anbieter.name}}>\nDie Daten kommen aus  unserem Open Data Portal <a href=\"{{odp.url}}\"><{{odp.name}}> geladen\n##Datenquelle\nDie Datenquelle ist in unserem Open Data Portal <a href=\"{{appinstanz.datensatz-url}}\"><{{appinstanz.datensatz-name}}> geladen.\n## App-Entwickler\n Die App wurde entwickelt von <a href=\"{{app.developer-url}}\"><{{app.developer-name}}>. App-Version: {{app.version}}.\n## Open Data App Store\nDer Open Data App Store betrieben von <a href=\"{{odas.betreiber.url}}\"><{{odas.betreiber.name}}>\n",
+      "default": [
+        "Die Generic-App zeigt die jeweils definierten Configs.",
+        "Die Daten werden tagesaktuell gehalten. Bei Änderungen versuchen wir, ",
+        "den Datenbestend immer sofort zu aktualisieren.\n ",
+        "## App-Anbieter",
+        "Die App wird bereit gestellt von <a href=\"{{anbieter.url}}\"><{{anbieter.name}}>",
+        "## Daten",
+        "Die Daten kommen aus  unserem Open Data Portal <a href=\"{{odp.url}}\"><{{odp.name}}>",
+        "Die Datenquelle ist in unserem Open Data Portal <a href=\"{{appinstanz.datensatz-url}}\"><{{appinstanz.datensatz-name}}>.",
+        "## App-Entwickler",
+        "Die App wurde entwickelt von <a href=\"{{app.developer-url}}\"><{{app.developer-name}}>. App-Version: {{app.version}}.",
+        "## Open Data App Store",
+        "Der Open Data App Store betrieben von <a href=\"{{odas.betreiber.url}}\"><{{odas.betreiber.name}}>\""
+      ],
       "erforderlich": "ja"
     },
     "impressum": {
       "label": "Impressum",
       "hilfe": "Der Text wird im Menüpunkt 'Impressum' anzeigt",
       "format": {
-        "typ": "html"
+        "typ": "markdown"
       },
-      "default": "{{anbieter.name}}\n{{anbieter.kontakt-bezeichnung}}\n{{anbieter.strasse}}\n{{anbieter.plzort}}\nTelefon: {{anbieter.tel}}\nFax: {{anbieter.fax}}\nWebsite: <a href='{{anbieter.url-extern}}' target='_blank'>{{anbieter.url-extern}}</a>",
+      "default": [
+        "{{anbieter.name}}",
+        "{{anbieter.kontakt-bezeichnung}}",
+        "{{anbieter.strasse}}",
+        "{{anbieter.plzort}}",
+        "Telefon: {{anbieter.tel}}",
+        "Fax: {{anbieter.fax}}",
+        "Website: <a href='{{anbieter.url-extern}}' target='_blank'>{{anbieter.url-extern}}</a>"
+      ],
       "erforderlich": "ja"
     },
     "datenschutz": {
       "label": "Datenschutz",
       "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' anzeigt",
       "format": {
-        "typ": "html"
+        "typ": "markdown"
       },
       "default": "Alle Daten sind geschützt.",
       "erforderlich": "ja"
     },
     "urlDaten": {
       "label": "URL zum Datensatz im ODP",
-      "hilfe": "Der Datensatz im Open Data Portal mit den CSV-Einzeldateien des Telefonbuchs",
+      "hilfe": "Der Datensatz im Open Data Portal mit den Daten der Generic App",
       "format": {
         "typ": "url"
       },
-      "default": "{{appconfig.datensatz-url}}",
-      "beispiel": "https://open-data-musterstadt.ckan.de/dataset/telefonbuch-musterstadt",
+      "default": "",
+      "beispiel": "",
       "erforderlich": "ja"
     },
     "fusszeile": {
@@ -172,12 +208,12 @@ Beispiel:
     },
     "apiUrl": {
       "label": "URL zur Datensatz-API",
-      "hilfe": "Von dieser API-URL zum Datensatz werden die Ressoucen bezogen (JSON)",
+      "hilfe": "Von dieser API-URL zum Datensatz werden die Ressoucen bezogen",
       "format": {
         "typ": "url"
       },
-      "default": "{{appconfig.datensatz-apiurl}}",
-      "beispiel": "https://open-data-musterstadt.ckan.de/api/3/action/package_show?id=telefonbuch-musterstadt",
+      "default": "",
+      "beispiel": "",
       "erforderlich": "ja"
     },
     "sprache": {
@@ -272,6 +308,9 @@ odas-app-beispiel/
 │ ├── script.js
 │ ├── logo.png
 │ └── favicon.png
+├── assets/
+│ ├── Desktop_Screenshot.png
+│ ├── Mobile_Screenshot.png
 ├── Changelog.md
 └── app-package.json
 ```
@@ -282,8 +321,10 @@ odas-app-beispiel/
 
 ## Autor und Kontakt
 
-Kontakt: info@ondics.de
+Kontakt: [info@ondics.de
+](info@ondics.de)
 
-https://ondics.de
+[ondics.de
+](https://ondics.de)
 
 (C) 2025 Ondics GmbH

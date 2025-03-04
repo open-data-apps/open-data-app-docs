@@ -29,14 +29,16 @@ Im ODAS können Open Data Portalbetreiber
 Im ODAS können ODA-Entwickler
 
 - eine oder mehrere ODAs veröffentlichen
-- ODAs testen (Todo: wie???)
+- ODAs testen
 - ODA-Updates veröffentlichen
 - ODA-Statistiken ansehen (wie oft und von wem wurde die ODA "gebucht"?)
 
 ## Autor und Kontakt
 
-Kontakt: info@ondics.de
+Kontakt: [info@ondics.de
+](info@ondics.de)
 
-https://ondics.de
+[ondics.de
+](https://ondics.de)
 
 (C) 2025 Ondics GmbH
