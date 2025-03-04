@@ -1,1 +1,8 @@
-theme: minima
+title: "Open Data App Store (ODAS)"
+description: "Dokumentation zum ODAS und den Open Data Apps"
+theme: jekyll-theme-cayman
+
+collections:
+  pages:
+    output: true
+    permalink: /:path/
