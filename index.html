@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Data App Spezifikationen</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <div class="header-container">
+        <h1>Open Data App Spezifikationen</h1>
+        <nav>
+          <ul>
+            <li><a href="#open-data-app-spezifikationen">Start</a></li>
+            <li><a href="#vorbemerkung">Vorbemerkung</a></li>
+            <li><a href="#architektur-einer-oda">Architektur</a></li>
+            <li><a href="#funktion-einer-oda">Funktion</a></li>
+            <li><a href="#der-open-data-app-store-odas">ODAS</a></li>
+            <li><a href="#aufbau-der-instanz-config">instanz-config</a></li>
+            <li><a href="#entwicklung-einer-oda">Entwicklung</a></li>
+            <li><a href="#offene-punkte">Offene Punkte</a></li>
+            <li><a href="#autor-und-kontakt">Kontakt</a></li>
+          </ul>
+        </nav>
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Suche..." />
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="content">
+      <!-- Abschnitt: Open Data App Spezifikationen -->
+      <section id="open-data-app-spezifikationen">
+        <h1>Open Data App Spezifikationen</h1>
+        <p>
+          Eine Open Data App (ODA) ist eine nützliche Web-App, die Daten aus
+          einem Open Data Portal bezieht und irgendetwas damit macht, z.b. sie
+          visualisiert.
+        </p>
+        <p>
+          ODAs ermöglichen den einfachen visuellen Zugang zu öffentlichen Daten
+          und fördern Open Data Sichtbarkeit, Transparenz und Innovation.
+        </p>
+        <p>
+          Eine ODA kann in einem Open Data App Store (ODAS) veröffentlicht
+          werden.
+        </p>
+        <p>Diese Dokument spezifiziert ODAs.</p>
+      </section>
+
+      <!-- Abschnitt: Vorbemerkung -->
+      <section id="vorbemerkung">
+        <h2>Vorbemerkung</h2>
+        <p>
+          In diesem Dokument wird <strong>soll</strong>, <strong>muss</strong>,
+          <strong>darf</strong> und <strong>kann</strong> verwendet und das ist
+          auch genauso gemeint!
+        </p>
+      </section>
+
+      <!-- Abschnitt: Architektur einer ODA -->
+      <section id="architektur-einer-oda">
+        <h2>Architektur einer ODA</h2>
+        <p>Eine ODA ...</p>
+        <ul>
+          <li>besteht aus statischen Dateien (js,html,css).</li>
+          <li>sollte alle statischen Dateien aus dem ODAS beziehen.</li>
+          <li>muss alle Daten aus einem Open Data Portal beziehen.</li>
+          <li>
+            muss ein Web-UI haben, darin sollten sich befinden: Beschreibung,
+            Kontakt, Datenschutz-Informationen, Impressum, Header, Footer
+          </li>
+          <li>
+            kann ihre Konfiguration über den ODAS beziehen (Config-Datei).
+          </li>
+          <li>wird mit einem Link gestartet</li>
+          <li>läuft in einem Browser-Fenster (nicht im IFRAME???))</li>
+        </ul>
+        <p>Die ODA ist grundsätzlich serverless.</p>
+      </section>
+
+      <!-- Abschnitt: Funktion einer ODA -->
+      <section id="funktion-einer-oda">
+        <h2>Funktion einer ODA</h2>
+        <ul>
+          <li>Eine ODA darf keinen Schadcode enthalten oder nachladen</li>
+          <li>Eine ODA darf nichts Betrügerisches tun</li>
+        </ul>
+      </section>
+
+      <!-- Abschnitt: Der Open Data App Store (ODAS) -->
+      <section id="der-open-data-app-store-odas">
+        <h2>Der Open Data App Store (ODAS)</h2>
+        <p>
+          Im ODAS können App-Entwickler ODAs veröffentlichen. Zudem können Open
+          Data Portalbetreiber diese ODAs ihrem Portal zuordnen.
+        </p>
+        <p>
+          Für einfache Interaktionen steht im ODAS eine Email-API zur Verfügung.
+        </p>
+        <p>
+          Emails dürfen nur an die im ODAS konfigurierte Email-Adresse versendet
+          werden.
+        </p>
+        <p>
+          Der ODAS ist aktuell erreichbar unter
+          <a
+            href="https://open-data-app-store.ckan.de/"
+            target="_blank"
+            class="default-link"
+          >
+            https://open-data-app-store.ckan.de/
+          </a>
+        </p>
+
+        <!-- Subabschnitt: ODAS für Open Data Portalbetreiber -->
+        <div class="subsection" id="odas-fuer-open-data-portalbetreiber">
+          <h3>ODAS für Open Data Portalbetreiber</h3>
+          <ul>
+            <li>ihr Open Data Portal (ODP) registrieren</li>
+            <li>für das ODP ein oder mehrere ODAs "buchen"/zuordnen</li>
+            <li>
+              die ODA für das eigene ODP konfiguriern (z.B. einen Open Data
+              Datensatz zuordnen)
+            </li>
+            <li>die zugeordneten ODAs mit den Daten aus dem ODP testen</li>
+          </ul>
+        </div>
+
+        <!-- Subabschnitt: ODAS für ODA-Entwickler -->
+        <div class="subsection" id="odas-fuer-oda-entwickler">
+          <h3>ODAS für ODA-Entwickler</h3>
+          <ul>
+            <li>eine oder mehrere ODAs veröffentlichen</li>
+            <li>ODAs testen</li>
+            <li>ODA-Updates veröffentlichen</li>
+            <li>
+              ODA-Statistiken ansehen (wie oft und von wem wurde die ODA
+              "gebucht"?)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Subabschnitt: Veröffentlichung einer ODA im ODAS -->
+        <div class="subsection" id="veroeffentlichung-einer-oda-im-odas">
+          <h3>Veröffentlichung einer ODA im ODAS</h3>
+          <p>
+            Eine ODA muss eine Datei <code>/app_package.json</code> haben. In
+            der sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...)
+            enthalten.
+          </p>
+          <p>Die Datei <code>/app_package.json</code></p>
+          <ul>
+            <li>muss folgende Top-Level Elemente enthalten:</li>
+          </ul>
+          <ul>
+            <li>app-entwickler: siehe ODAS</li>
+            <li>app-entwickler-name: siehe ODAS</li>
+            <li>name-in-url: Teil der Url</li>
+            <li>name</li>
+            <li>version</li>
+            <li>odas-app-icon</li>
+            <li>app-icon</li>
+            <li>kurzbeschreibung</li>
+            <li>beschreibung</li>
+            <li>screenshots</li>
+            <li>apiVersion</li>
+            <li>
+              instanz-config: Formularspezifikation zur Konfiguration der
+              Config-Datei durch den Open Data Portalbetreiber
+            </li>
+          </ul>
+          <p>
+            Die in der ODA enthaltenen statischen Dateien sollten im Verzeichnis
+            <code>/assets</code> liegen.
+          </p>
+          <p>Beispiel:</p>
+          <pre>
+{
+  "app-entwickler": "12343",
+  "app-entwickler-name": "mueller-gmbh",
+  "name-in-url": "telefonbuch",
+  "name": "Telefonbuch",
+  "version": "1.0.0",
+  "odas-app-icon": "assets/odas-app-icon.png",
+  "app-icon": "assets/app-icon.png",
+  "kurzbeschreibung": "Telefonbuch mit Bereichauswahl auf Basis von CSV-Dateien",
+  "beschreibung": [
+    "Das Telefonbuch zeigt Namen, Stellen und Telefonnummern an. Die Daten werden aus einem Open",
+    "Data Portal bezogen und müssen in Form von JPG-Dateien vorliegen.",
+    "Die Daten müssen in einem Open Data Portal",
+    "wie folgt aufgebaut sein: \n",
+    "* Datensatz: Mit allen Telefonbüchern als Ressourcen",
+    "* Ressourcen: Jede Telefonbuch Ressource muss als CSV Datei angelegt werden. Diese müssen folgendem Format entsprechen:",
+    "name, stelle, telefonnummer"
+  ],
+  "screenshots": ["assets/Desktop_Screenshot.png", "assets/Mobile_Screenshot.png"],
+  "apiversion": "1",
+  "instanz-config": { 
+    "seitentitel": {
+      "label": "Seitentitel",
+      "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt",
+      "default": "Telefon-App",
+      "format": {
+        "typ": "string",
+        "laenge": 50
+      },
+      "erforderlich": "ja"
+    },
+    "titel": {
+      "label": "Titel",
+      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt",
+      "default": "Telefonbuch",
+      "format": {
+        "typ": "string",
+        "laenge": 50
+      },
+      "erforderlich": "ja"
+    },
+    "icon": {
+      "label": "App-Icon",
+      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt",
+      "format": {
+        "typ": "image",
+        "hoehe": 64,
+        "breite": 189
+      },
+      "erforderlich": "ja"
+    },
+    "kontakt": {
+      "label": "Kontakt",
+      "hilfe": "Der Text wird im Menüpunkt 'Kontakt' anzeigt",
+      "format": {
+        "typ": "html"
+      },
+      "default": "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a><br>Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a><br>E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>",
+      "erforderlich": "ja"
+    },
+    "beschreibung": {
+      "label": "Beschreibung",
+      "hilfe": "Der Text wird im Menüpunkt 'Über diese App' anzeigt",
+      "format": {
+        "typ": "html"
+      },
+      "default": "Die Telefonbuch-App zeigt die Namen, Stellen und Telefonnummern für ausgewählte Telefondatensätze.\nDie Daten werden tagesaktuell gehalten. Bei Änderungen versuchen wir, den Datenbestend immer sofort zu aktualisieren. \n##App-Anbieter\nDie App wird bereit gestellt von <a href=\"{{anbieter.url}}\"><{{anbieter.name}}>\nDie Daten kommen aus  unserem Open Data Portal <a href=\"{{odp.url}}\"><{{odp.name}}> geladen\n##Datenquelle\nDie Datenquelle ist in unserem Open Data Portal <a href=\"{{appinstanz.datensatz-url}}\"><{{appinstanz.datensatz-name}}> geladen.\n## App-Entwickler\n Die App wurde entwickelt von <a href=\"{{app.developer-url}}\"><{{app.developer-name}}>. App-Version: {{app.version}}.\n## Open Data App Store\nDer Open Data App Store betrieben von <a href=\"{{odas.betreiber.url}}\"><{{odas.betreiber.name}}>\n",
+      "erforderlich": "ja"
+    },
+    "impressum": {
+      "label": "Impressum",
+      "hilfe": "Der Text wird im Menüpunkt 'Impressum' anzeigt",
+      "format": {
+        "typ": "html"
+      },
+      "default": "{{anbieter.name}}\n{{anbieter.kontakt-bezeichnung}}\n{{anbieter.strasse}}\n{{anbieter.plzort}}\nTelefon: {{anbieter.tel}}\nFax: {{anbieter.fax}}\nWebsite: <a href='{{anbieter.url-extern}}' target='_blank'>{{anbieter.url-extern}}</a>",
+      "erforderlich": "ja"
+    },
+    "datenschutz": {
+      "label": "Datenschutz",
+      "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' anzeigt",
+      "format": {
+        "typ": "html"
+      },
+      "default": "Alle Daten sind geschützt.",
+      "erforderlich": "ja"
+    },
+    "urlDaten": {
+      "label": "URL zum Datensatz im ODP",
+      "hilfe": "Der Datensatz im Open Data Portal mit den CSV-Einzeldateien des Telefonbuchs",
+      "format": {
+        "typ": "url"
+      },
+      "default": "{{appconfig.datensatz-url}}",
+      "beispiel": "https://open-data-musterstadt.ckan.de/dataset/telefonbuch-musterstadt",
+      "erforderlich": "ja"
+    },
+    "fusszeile": {
+      "label": "Fußzeile",
+      "hilfe": "Wird auf der Website unten in der Fusszeile angezeigt.",
+      "format": {
+        "typ": "String",
+        "laenge": 50
+      },
+      "default": "(C) Copyright {{jahr}} | App & Daten: {{anbieter.name}} | App-Entwickler: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
+      "erforderlich": "ja"
+    },
+    "apiUrl": {
+      "label": "URL zur Datensatz-API",
+      "hilfe": "Von dieser API-URL zum Datensatz werden die Ressoucen bezogen (JSON)",
+      "format": {
+        "typ": "url"
+      },
+      "default": "{{appconfig.datensatz-apiurl}}",
+      "beispiel": "https://open-data-musterstadt.ckan.de/api/3/action/package_show?id=telefonbuch-musterstadt",
+      "erforderlich": "ja"
+    },
+    "sprache": {
+      "label": "Sprache der App",
+      "hilfe": "Angabe der App-Sprache",
+      "format": {
+        "typ": "dropdown",
+        "optionen": ["de"],
+        "default": "de"
+      },
+      "erforderlich": "ja"
+    } 
+    }
+}
+        </pre>
+        </div>
+      </section>
+
+      <!-- Abschnitt: Aufbau der instanz-config -->
+      <section id="aufbau-der-instanz-config">
+        <h2>Aufbau der instanz-config</h2>
+        <p>
+          Es wird jedes Feld des Konfigurationsformulars für diese ODA
+          spezifiziert.
+        </p>
+        <ul>
+          <li>Format-Typen der Felder: string, html, url, email</li>
+          <li>
+            beim Format-Typ <code>string</code> ist noch eine maximale
+            <code>laenge</code> angebbar
+          </li>
+          <li>
+            Vorbelegungen können mit dem <code>"default"</code> Key angegeben
+            werden
+          </li>
+          <li>
+            in <code>"default"</code> Werten sind folgende Platzhalter (z.B.
+            <code>anbieter-tel</code>) möglich:
+          </li>
+        </ul>
+        <pre>
+  jahr: "Aktuelles Jahr",
+  anbieter: {
+    name: "Name des Anbieters",
+    email: "E-Mail des Anbieters",
+    tel: "Telefonnummer des Anbieters",
+    fax: "Faxnummer des Anbieters",
+    url: "Webseite des Anbieters",
+    strasse: "Straße des Anbieters",
+    plzort: "Postleitzahl und Ort des Anbieters",
+    kontaktbezeichnung: "Kontaktbezeichnung des Anbieters",
+  },
+  app: {
+    version: "Version der App",
+    developer: {
+      name: "Name des Entwicklers",
+      email: "E-Mail des Entwicklers",
+      "developer-url": "Webseite des Entwicklers",
+    },
+  },
+  appinstanz: {
+    "datensatz-url": "URL des Datensatzes",
+    "datensatz-name": "Name des Datensatzes",
+  },
+  odp: {
+    name: "Name des ODP",
+    url: "URL des ODP",
+  },
+  odas: {
+    betreiber: {
+      name: "Name des Betreibers",
+      url: "Webseite des Betreibers",
+    },
+  },
+      </pre
+        >
+      </section>
+
+      <!-- Abschnitt: Entwicklung einer ODA -->
+      <section id="entwicklung-einer-oda">
+        <h2>Entwicklung einer ODA</h2>
+        <p>
+          Die Entwicklung kann mit der <code>odas-app-generic</code> begonnen
+          werden:
+        </p>
+        <pre>
+    $ git clone ...
+      </pre
+        >
+        <p>Jetzt bauen wird das Image mit dem Webserver Nginx:</p>
+        <pre>
+    $ make build
+      </pre
+        >
+        <p>
+          Und starten den Conatiner (derTCP/IP-Port kann in
+          <code>docker-compose.yml</code> geändert werden):
+        </p>
+        <pre>
+    $ make up
+      </pre
+        >
+        <p>
+          Die ODA steht dann unter <code>http://[ip-adresse]:[Port]</code> zur
+          Verfügung.
+        </p>
+        <p>Die App kann wieder gestoppt werden mit</p>
+        <pre>
+    $ make down
+      </pre
+        >
+        <p>
+          Um eine ODA auszuliefern und in den ODAS einzustellen, wird die
+          zip-Datei ersellt:
+        </p>
+        <pre>
+    $ make zip
+      </pre
+        >
+        <p>Die ZIP-Datei muss folgende Verzeichnisstruktur besitzen:</p>
+        <pre>
+  odas-app-beispiel/
+  ├── app/
+  │ ├── index.html
+  │ ├── script.js
+  │ ├── logo.png
+  │ └── favicon.png
+  ├── Changelog.md
+  └── app-package.json
+      </pre
+        >
+      </section>
+
+      <!-- Abschnitt: Offene Punkte -->
+      <section id="offene-punkte">
+        <h2>Offene Punkte</h2>
+        <ul>
+          <li>
+            Mehrsprachigkeit: Nur App oder auch Daten? Statisch oder
+            konfiguriert?
+          </li>
+        </ul>
+      </section>
+
+      <!-- Abschnitt: Autor und Kontakt -->
+      <section id="autor-und-kontakt">
+        <h2>Autor und Kontakt</h2>
+        <p>
+          Kontakt:
+          <a href="mailto:info@ondics.de" class="default-link"
+            >info@ondics.de</a
+          >
+        </p>
+        <p>
+          <a href="https://www.ondics.de/" target="_blank" class="default-link">
+            https://www.ondics.de/
+          </a>
+        </p>
+        <p>(C) 2025 Ondics GmbH</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Ondics GmbH</p>
+    </footer>
+
+    <!-- Suchfunktion -->
+    <script>
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          const filter = this.value.toLowerCase();
+          document.querySelectorAll("main section").forEach((section) => {
+            section.style.display = section.textContent
+              .toLowerCase()
+              .includes(filter)
+              ? "block"
+              : "none";
+          });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+/* Smooth Scrolling & Scroll-Padding (angepasst an die Header-Höhe) */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+/* Farbvariablen und Grundschrift */
+:root {
+  --primary-color: #005f73;
+  --secondary-color: #0a9396;
+  --accent-color: #94d2bd;
+  --light-color: #f0f0f0;
+  --dark-color: #001219;
+  --font-family: "Roboto", sans-serif;
+}
+
+/* Globales Styling */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+}
+
+/* Globale Link-Stile (alle Links außer .default-link) */
+a {
+  color: var(--dark-color);
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/* Standard-Darstellung für den CKAN-Link */
+a.default-link {
+  color: #0645ad; /* typisches Blau */
+  text-decoration: underline;
+}
+
+/* Header & Navigation */
+header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ul li {
+  margin: 0 10px;
+}
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s, border-bottom 0.3s;
+  padding-bottom: 3px;
+}
+nav ul li a:hover,
+nav ul li a:focus {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+.search-container {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+.search-container input[type="text"] {
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 300px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Main Content */
+main {
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+section {
+  margin-bottom: 40px;
+}
+
+/* Pseudo-Elemente, damit Überschriften nicht vom Header verdeckt werden */
+section h1::before,
+section h2::before,
+section h3::before {
+  content: "";
+  display: block;
+  height: 120px;
+  margin-top: -120px;
+  visibility: hidden;
+}
+
+section h1 {
+  margin-bottom: 20px;
+}
+section h2 {
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+section h3 {
+  margin-top: 20px;
+  color: var(--secondary-color);
+}
+section p,
+section ul,
+section pre {
+  margin-bottom: 15px;
+}
+ul {
+  padding-left: 20px;
+}
+
+/* Codeblöcke */
+pre {
+  background-color: #f7f7f7;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+code {
+  font-family: "Consolas", monospace;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 20px;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+  }
+  nav ul li {
+    margin: 5px 0;
+  }
+}
