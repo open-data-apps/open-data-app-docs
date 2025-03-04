@@ -3,7 +3,7 @@ layout: default
 title: Open Data App Store (ODAS) und Open Data Apps (ODA)
 ---
 
-# Willkommen beim Open Data App Store (ODAS)
+# Willkommen bei der Dokumentation des Open Data App Store (ODAS)
 
 Der **Open Data App Store (ODAS)** ist eine Plattform zur Veröffentlichung und Verwaltung von Open Data Apps (ODAs). Diese ermöglichen die Visualisierung und Nutzung offener Daten aus verschiedenen Open Data Portalen.
 

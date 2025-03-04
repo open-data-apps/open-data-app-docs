@@ -13,7 +13,7 @@ Für einfache Interaktionen steht im ODAS eine Email-API zur Verfügung.
 
 Emails dürfen nur an die im ODAS konfigurierte Email-Adresse versendet werden.
 
-Der ODAS ist aktuell erreichbar unter [https://open-data-app-store.ckan.de/](https://open-data-app-store.ckan.de/)
+Der ODAS ist aktuell erreichbar unter [Open Data App Store](https://open-data-app-store.ckan.de/)
 
 ## ODAS für Open Data Portalbetreiber
 
