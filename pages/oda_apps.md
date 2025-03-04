@@ -324,7 +324,7 @@ odas-app-beispiel/
 Kontakt: [info@ondics.de
 ](info@ondics.de)
 
-[ondics.de
+Website: [ondics.de
 ](https://ondics.de)
 
 (C) 2025 Ondics GmbH
