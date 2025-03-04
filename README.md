@@ -297,6 +297,7 @@ Um eine ODA auszuliefern und in den ODAS einzustellen, wird die zip-Datei ersell
 
 Die ZIP-Datei muss folgende Verzeichnisstruktur besitzen:
 
+```
 odas-app-beispiel/
 ├── app/
 │ ├── index.html
@@ -305,6 +306,7 @@ odas-app-beispiel/
 │ └── favicon.png
 ├── Changelog.md
 └── app-package.json
+```
 
 ## Offene Punkte
 

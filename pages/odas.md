@@ -12,7 +12,6 @@ Zudem können Open Data Portalbetreiber diese ODAs ihrem Portal zuordnen.
 Für einfache Interaktionen steht im ODAS eine Email-API zur Verfügung.
 
 Emails dürfen nur an die im ODAS konfigurierte Email-Adresse versendet werden.
---> können wir das sicherstellen oder die API ganz ohne Empfänger angeben?
 
 Der ODAS ist aktuell erreichbar unter [https://open-data-app-store.ckan.de/](https://open-data-app-store.ckan.de/)
 
@@ -33,3 +32,11 @@ Im ODAS können ODA-Entwickler
 - ODAs testen (Todo: wie???)
 - ODA-Updates veröffentlichen
 - ODA-Statistiken ansehen (wie oft und von wem wurde die ODA "gebucht"?)
+
+## Autor und Kontakt
+
+Kontakt: info@ondics.de
+
+https://ondics.de
+
+(C) 2025 Ondics GmbH
