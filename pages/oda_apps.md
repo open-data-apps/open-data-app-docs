@@ -348,6 +348,7 @@ Erstelle die app. fülle dazu die funktion app() {} und ggf. addToHead() {}
 
 hier ist der code-template:
 
+```
 /\*
 
 - Diese Funktion ist für die Inhalte der Startseite
@@ -386,6 +387,7 @@ function app(configdata = [], enclosingHtmlDivElement) {
   function addToHead() {
   return ``;
   }
+```
 
 ## Offene Punkte
 
