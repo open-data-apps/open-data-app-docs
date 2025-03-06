@@ -315,6 +315,8 @@ odas-app-beispiel/
 └── app-package.json
 ```
 
+Der Ordner "app" sowie der Ordner "assets" dürfen beliebig viele Dateien enthalten.
+
 ## Beispiel App Prompt
 
 Prompt:
