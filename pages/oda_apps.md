@@ -305,7 +305,10 @@ Die ZIP-Datei muss folgende Verzeichnisstruktur besitzen:
 odas-app-beispiel/
 ├── app/
 │ ├── index.html
-│ ├── script.js
+│ ├── app-base.css
+│ ├── app.css
+│ ├── app-base.js
+│ ├── app.js
 │ ├── logo.png
 │ └── favicon.png
 ├── assets/
