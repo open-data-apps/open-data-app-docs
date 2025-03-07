@@ -39,32 +39,31 @@ Die ODA ist grundsätzlich serverless.
 
 ### Die Datei `app_package.json`
 
-Die Datei `app_package.json` liegt im Root BVerzeichnis der ODA. 
+Die Datei `app_package.json` liegt im Root Verzeichnis der ODA.
 
 In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) enthalten.
 
 Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
+
 - `app-entwickler`: siehe ODAS
 - `app-entwickler-name`: siehe ODAS
 - `name-in-url`: wird später beim Aufruf der App in der URL verwendet [a-z0-0-]
 - `name`: Name der App, wie er im ODAS angezeigt wird
 - `version`: Versionsnummer (Format: 1.2.3)
-- `odas-app-icon`: Icon der App für die Anzeige im ODAS. Dateiname ohne Pfad. Datei muss in /assets liegen
-- `app-icon`: ???
+- `odas-app-icon`: Icon der App für die Anzeige im ODAS. Dateiname ohne Pfad. Datei muss in /assets liegen. Größe: 512x512px. Format: png, jpg, svg
+- `app-icon`: Icon der App für die Anzeige in der App z.B. links oben Datei muss in /app liegen. Größe: 1:3 Verhältnis, z.B. 60px Breite x 180px Höhe. Format: png, jpg, svg
 - `kurzbeschreibung`: kurze Beschreibung der App (für ODP-Betreiber)
 - `beschreibung`: Beschreibung der App (für ODP-Betreiber). Hier sollten Funktionweise, Datenformate, Konfigurationen etwas stehen
 - `screenshots`: Array mit mehreren Screenshots. Müssen in `assets` liegen
 - `apiversion`: Version der config-API. Muss aktuell 1.0 sein
 - `instanz-config`: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber (siehe unten)
 
-
-
 #### Multiline-Strings in `app_package.json`
 
 Wenn längerer Text in einem Wert enthalten sein soll, kann dieser
-als "Multiline-String" definiert werden. 
+als "Multiline-String" definiert werden.
 
-Jeder Wert inder `app_package.json`, der ein Array von Strings ist und 
+Jeder Wert inder `app_package.json`, der ein Array von Strings ist und
 der erste String ein "_multiline_" ist, wird als Multiline-String interpretiert.
 
 Beispiel für einen Wert, der als Multiline-String definiert ist:
@@ -83,6 +82,7 @@ Beispiel für einen Wert, der als Multiline-String definiert ist:
 ```
 
 Dieser Wert wird im ODAS interpretiert als:
+
 ```
   "mehrzeiliger-string":"erste zeile zweite Zeile\ndritte Zeile"
 ```
@@ -96,12 +96,12 @@ ODA-Assets sind statische Dateien, die von der App benötigt werden, z.B. CSS-Da
 Die ODA-Assets sind im Verzeichnis `/assets` zu speichern.
 
 Folgende Dateinamen ist nicht zulässig:
-- `_odp-logo.png`
 
+- `_odp-logo.png`
 
 #### Aufbau der `instanz-config`
 
-Die `instanz-config` definiert, wie das Formular zur Bearbeitung der Konfiguration durch den 
+Die `instanz-config` definiert, wie das Formular zur Bearbeitung der Konfiguration durch den
 Open Data Portalbetreiber aufgebaut ist (siehe unten).
 
 Es wird jedes Feld des Konfigurationsformulars für diese ODA einzeln spezifiert.
@@ -109,20 +109,21 @@ Der App-Entwickler legt die Felder selber fest, die zur Konfiguration der App be
 
 Aufbau der `instanz-config`:
 
-Der Key (z.B. `titel`) muss eindeutig sein. 
+Der Key (z.B. `titel`) muss eindeutig sein.
 
 Feld-Angaben:
 
-+ `label`: beschreiftung des Feldes
-+ `hilfe`: Kurzhilfe, was mit dem Feld eingegeben werden soll
+- `label`: beschreiftung des Feldes
+- `hilfe`: Kurzhilfe, was mit dem Feld eingegeben werden soll
+
 * `erforderlich`: "ja" oder "nein"
 * `format`: Format des Feldes. Als Formate sind zulässig:
-  * string (mit Längenangabe `laenge`
-  * html
-  * url
-  * email
-  * markdown
-  * image (das image muss über als ODA-Asset gespeichert sein
+  - string (mit Längenangabe `laenge`
+  - html
+  - url
+  - email
+  - markdown
+  - image (das image muss über als ODA-Asset gespeichert sein
 * `default`: Vorbelegungen können mit dem `default` Key angegeben werden
 
 Beispiel für `instanz-config`:
@@ -167,10 +168,6 @@ Beispiel für `instanz-config`:
 
 ```
 
-
-
-
-
 ### Veröffentlichung einer ODA im ODAS
 
 Eine ODA muss eine Datei `/app_package.json` haben. In der sind
@@ -200,7 +197,7 @@ im Verzeichnis `/assets` liegen.
 
 ```
 {
-  "app-entwickler": "12343",
+  "app-entwickler-id": "12343",
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "generic",
   "name": "Generic Open Data App",
@@ -369,13 +366,12 @@ im Verzeichnis `/assets` liegen.
 }
 ```
 
-
 ## Entwicklung einer ODA
 
 Systemvoraussetzungen (empfohlen):
 
-* Ubuntu
-* Docker, Docker-Compose, Make
+- Ubuntu
+- Docker, Docker-Compose, Make
 
 Die Entwicklung kann mit der `odas-app-generic` begonnen werden.
 Zunächst wird das Repo gecloned:
