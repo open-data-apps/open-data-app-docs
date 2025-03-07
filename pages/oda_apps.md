@@ -24,16 +24,148 @@ Eine ODA ...
 - sollte alle statischen Dateien aus dem ODAS beziehen.
 - muss alle Daten aus einem Open Data Portal beziehen.
 - muss ein Web-UI haben, das folgende Inhalte enthält: Beschreibung, Kontakt, Datenschutz-Informationen, Impressum, Header, Footer.
-- kann ihre Konfiguration über den ODAS beziehen (Config-Datei).
+- muss ihre Konfiguration über den ODAS beziehen (Config-Datei).
 - wird mit einem Link gestartet.
 - läuft in einem Browser-Fenster (nicht im IFRAME???).
+- besitzt eine Datei `app_package.json`, in der die Konfiguration der ODA beschreiben ist
 
 Die ODA ist grundsätzlich serverless.
 
 ## Funktion einer ODA
 
+- Die ODA tut genau das, was in der Beschreibung ausgeführt ist
 - Eine ODA darf keinen Schadcode enthalten oder nachladen.
 - Eine ODA darf nichts Betrügerisches tun.
+
+### Die Datei `app_package.json`
+
+Die Datei `app_package.json` liegt im Root BVerzeichnis der ODA. 
+
+In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) enthalten.
+
+Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
+- app-entwickler: siehe ODAS
+- app-entwickler-name: siehe ODAS
+- name-in-url: Teil der Url
+- name
+- version
+- odas-app-icon
+- app-icon
+- kurzbeschreibung
+- beschreibung
+- screenshots
+- apiversion
+- instanz-config: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber
+
+
+
+#### Multiline-Strings in `app_package.json`
+
+Wenn längerer Text in einem Wert enthalten sein solol, kann dieser
+als "Multiline-String" definiert werden. Jeder Wert, der ein Array 
+von Strings ist, wird als Multiline-String interpretiert.
+
+Beispiel für einen Wert, der als Multiline-String definiert ist:
+
+```
+{
+  ...
+  "mehrzeiliger-string": [
+    "erste zeile ",
+    "zweite Zeile\n",
+    "dritte Zeile"
+  ],
+  ...
+}
+```
+
+Dieser Wert wird im ODAS interpretiert als:
+```
+  "mehrzeiliger-string":"erste zeile zweite Zeile\ndritte Zeile"
+```
+
+Ein vollständiges Beispiel für ein app_packages ist unten dargestellt.
+
+### ODA-Assets
+
+ODA-Assets sind statische Dateien, die von der App benötigt werden, z.B. CSS-Dateien, Icons, ...
+
+Die ODA-Assets sind im Verzeichnis `/assets` zu speichern.
+
+Folgende Dateinamen ist nicht zulässig:
+- `_odp-logo.png`
+
+
+#### Aufbau der `instanz-config`
+
+Die `instanz-config` definiert, wie das Formular zur Bearbeitung der Konfiguration durch den 
+Open Data Portalbetreiber aufgebaut ist (siehe unten).
+
+Es wird jedes Feld des Konfigurationsformulars für diese ODA einzeln spezifiert.
+Der App-Entwickler legt die Felder selber fest, die zur Konfiguration der App benötigt werden.
+
+Aufbau der `instanz-config`:
+
+Der Key (z.B. `titel`) muss eindeutig sein. 
+
+Feld-Angaben:
+
++ `label`: beschreiftung des Feldes
++ `hilfe`: Kurzhilfe, was mit dem Feld eingegeben werden soll
+* `erforderlich`: "ja" oder "nein"
+* `format`: Format des Feldes. Als Formate sind zulässig:
+  * string (mit Längenangabe `laenge`
+  * html
+  * url
+  * email
+  * markdown
+  * image (das image muss über als ODA-Asset gespeichert sein
+* `default`: Vorbelegungen können mit dem `default` Key angegeben werden
+
+Beispiel für `instanz-config`:
+
+```
+  "instanz-config": {
+    "titel": {
+      "label": "Titel",
+      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt",
+      "default": "Generic Open Data App",
+      "format": {
+        "typ": "string",
+        "laenge": 50
+      },
+      "erforderlich": "ja"
+    },
+    "icon": {
+      "label": "App-Icon",
+      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt",
+      "format": {
+        "typ": "image",
+        "hoehe": 100,
+        "breite": 300
+      },
+      "erforderlich": "ja"
+    },
+    "kontakt": {
+      "label": "Kontakt",
+      "hilfe": "Der Text wird im Menüpunkt 'Kontakt' anzeigt",
+      "format": {
+        "typ": "markdown"
+      },
+      "default": [
+        "Bei Fragen zur App wenden Sie sich bitte an: ",
+        "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
+        "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
+        "E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>"
+      ],
+      "erforderlich": "ja"
+    },
+
+```
+
+
+
+
 
 ### Veröffentlichung einer ODA im ODAS
 
@@ -60,7 +192,7 @@ Die Datei `/app_package.json`
 Die in der ODA enthaltenen statischen Dateien sollten
 im Verzeichnis `/assets` liegen.
 
-Beispiel:
+## Vollständiges Beispiel einer `app_package.json`
 
 ```
 {
@@ -230,54 +362,16 @@ Beispiel:
 }
 ```
 
-### Aufbau der instanz-config
-
-Es wird jedes Feld des Konfigurationsformulars für diese ODA spezifiert.
-
-- Format-Typen der Felder: string, html, url, email
-- beim Format-Typ `string` ist noch eine maximale `laenge` angebbar
-- Vorbelegungen können mit dem `"default"` Key angegeben werden
-- in `"default"` Werten sind folgende Platzhalter (z.B. `anbieter-tel`) möglich:
-
-```
-  jahr: "Aktuelles Jahr",
-  anbieter: {
-    name: "Name des Anbieters",
-    email: "E-Mail des Anbieters",
-    tel: "Telefonnummer des Anbieters",
-    fax: "Faxnummer des Anbieters",
-    url: "Webseite des Anbieters",
-    strasse: "Straße des Anbieters",
-    plzort: "Postleitzahl und Ort des Anbieters",
-    kontaktbezeichnung: "Kontaktbezeichnung des Anbieters",
-  },
-  app: {
-    version: "Version der App",
-    developer: {
-      name: "Name des Entwicklers",
-      email: "E-Mail des Entwicklers",
-      "developer-url": "Webseite des Entwicklers",
-    },
-  },
-  appinstanz: {
-    "datensatz-url": "URL des Datensatzes",
-    "datensatz-name": "Name des Datensatzes",
-  },
-  odp: {
-    name: "Name des ODP",
-    url: "URL des ODP",
-  },
-  odas: {
-    betreiber: {
-      name: "Name des Betreibers",
-      url: "Webseite des Betreibers",
-    },
-  },
-```
 
 ## Entwicklung einer ODA
 
-Die Entwicklung kann mit der `odas-app-generic` begonnen werden:
+Systemvoraussetzungen (empfohlen):
+
+* Ubuntu
+* Docker, Docker-Compose, Make
+
+Die Entwicklung kann mit der `odas-app-generic` begonnen werden.
+Zunächst wird das Repo gecloned:
 
     $ git clone ...
 
@@ -289,7 +383,7 @@ Und starten den Conatiner (derTCP/IP-Port kann in `docker-compose.yml` geändert
 
     $ make up
 
-Die ODA steht dann unter http://[ip-adresse]:[Port] zur Verfügung.
+Die ODA steht dann unter http://localhost:8090 zur Verfügung.
 
 Die App kann wieder gestoppt werden mit
 
@@ -299,7 +393,7 @@ Um eine ODA auszuliefern und in den ODAS einzustellen, wird die zip-Datei ersell
 
     $ make zip
 
-Die ZIP-Datei muss folgende Verzeichnisstruktur besitzen:
+Folgende Dateien müssen dazu vorhanden sein:
 
 ```
 odas-app-beispiel/
