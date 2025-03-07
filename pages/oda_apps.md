@@ -44,26 +44,28 @@ Die Datei `app_package.json` liegt im Root BVerzeichnis der ODA.
 In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) enthalten.
 
 Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
-- app-entwickler: siehe ODAS
-- app-entwickler-name: siehe ODAS
-- name-in-url: Teil der Url
-- name
-- version
-- odas-app-icon
-- app-icon
-- kurzbeschreibung
-- beschreibung
-- screenshots
-- apiversion
-- instanz-config: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber
+- `app-entwickler`: siehe ODAS
+- `app-entwickler-name`: siehe ODAS
+- `name-in-url`: wird später beim Aufruf der App in der URL verwendet [a-z0-0-]
+- `name`: Name der App, wie er im ODAS angezeigt wird
+- `version`: Versionsnummer (Format: 1.2.3)
+- `odas-app-icon`: Icon der App für die Anzeige im ODAS. Dateiname ohne Pfad. Datei muss in /assets liegen
+- `app-icon`: ???
+- `kurzbeschreibung`: kurze Beschreibung der App (für ODP-Betreiber)
+- `beschreibung`: Beschreibung der App (für ODP-Betreiber). Hier sollten Funktionweise, Datenformate, Konfigurationen etwas stehen
+- `screenshots`: Array mit mehreren Screenshots. Müssen in `assets` liegen
+- `apiversion`: Version der config-API. Muss aktuell 1.0 sein
+- `instanz-config`: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber (siehe unten)
 
 
 
 #### Multiline-Strings in `app_package.json`
 
-Wenn längerer Text in einem Wert enthalten sein solol, kann dieser
-als "Multiline-String" definiert werden. Jeder Wert, der ein Array 
-von Strings ist, wird als Multiline-String interpretiert.
+Wenn längerer Text in einem Wert enthalten sein soll, kann dieser
+als "Multiline-String" definiert werden. 
+
+Jeder Wert inder `app_package.json`, der ein Array von Strings ist und 
+der erste String ein "_multiline_" ist, wird als Multiline-String interpretiert.
 
 Beispiel für einen Wert, der als Multiline-String definiert ist:
 
@@ -71,6 +73,7 @@ Beispiel für einen Wert, der als Multiline-String definiert ist:
 {
   ...
   "mehrzeiliger-string": [
+    "_multiline_",
     "erste zeile ",
     "zweite Zeile\n",
     "dritte Zeile"
@@ -153,6 +156,7 @@ Beispiel für `instanz-config`:
         "typ": "markdown"
       },
       "default": [
+        "_multiline_",
         "Bei Fragen zur App wenden Sie sich bitte an: ",
         "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
         "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
@@ -205,14 +209,15 @@ im Verzeichnis `/assets` liegen.
   "app-icon": "assets/app-icon.png",
   "kurzbeschreibung": "Diese Open Data App ist Anschauungsobjekt und Musterbeispiel für weitere Apps.",
   "beschreibung": [
+    "_multiline_",
     "Die Open Data App ist Musterbeispiel für weitere Apps. Inhaltlich macht sie ",
     "fast nichts, sondern zeigt nur die Config Daten an. ",
     "Die Daten werden aus einem Open Data Portal bezogen. ",
     ""
   ],
   "screenshots": [
-    "/assets/Desktop_Screenshot.png",
-    "/assets/Mobile_Screenshot.png"
+    "Desktop_Screenshot.png",
+    "Mobile_Screenshot.png"
   ],
   "api-version": "1",
   "instanz-config": {
@@ -263,6 +268,7 @@ im Verzeichnis `/assets` liegen.
         "typ": "markdown"
       },
       "default": [
+        "_multiline_",
         "Bei Fragen zur App wenden Sie sich bitte an: ",
         "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
         "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
@@ -277,6 +283,7 @@ im Verzeichnis `/assets` liegen.
         "typ": "markdown"
       },
       "default": [
+        "_multiline_",
         "Die Generic-App zeigt die jeweils definierten Configs.",
         "Die Daten werden tagesaktuell gehalten. Bei Änderungen versuchen wir, ",
         "den Datenbestend immer sofort zu aktualisieren.\n ",
@@ -299,12 +306,12 @@ im Verzeichnis `/assets` liegen.
         "typ": "markdown"
       },
       "default": [
+        "_multiline_",
         "{{anbieter.name}}",
         "{{anbieter.kontakt-bezeichnung}}",
         "{{anbieter.strasse}}",
         "{{anbieter.plzort}}",
         "Telefon: {{anbieter.tel}}",
-        "Fax: {{anbieter.fax}}",
         "Website: <a href='{{anbieter.url-extern}}' target='_blank'>{{anbieter.url-extern}}</a>"
       ],
       "erforderlich": "ja"
