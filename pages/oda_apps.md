@@ -45,7 +45,7 @@ In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) en
 
 Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
 
-- `app-entwickler`: siehe ODAS
+- `app-entwickler-id`: siehe ODAS
 - `app-entwickler-name`: siehe ODAS
 - `name-in-url`: wird später beim Aufruf der App in der URL verwendet [a-z0-0-]
 - `name`: Name der App, wie er im ODAS angezeigt wird
@@ -177,7 +177,7 @@ enthalten.
 Die Datei `/app_package.json`
 
 - muss folgende Top-Level Elemente enthalten:
-  - app-entwickler: siehe ODAS
+  - app-entwickler-id: siehe ODAS
   - app-entwickler-name: siehe ODAS
   - name-in-url: Teil der Url
   - name
@@ -434,8 +434,7 @@ die technischen rahmenbedingungen der app sind folgende;
   soll die App von dort die Daten beziehen.
 - die app() funktion muss in Javascript geschrieben werden.
 - Der generierte Content soll ausschließlich in das enclosingHtmlDivElement geladen werden.
-- Mit der Funktion addToHead können Skripte oder Stylesheets per Html Code in den Head
-  der index.html geladen werden.
+- Mit der Funktion addToHead können Skripte oder Stylesheets hinzugefügt werden per Javascript
 - Alles innerhalb der beiden Funktionen ist nur BeispielCode und soll ersetzt werden.
 
 die app soll folendes tun:
@@ -467,7 +466,7 @@ hier ist der code-template:
 - ConfigData ist ein JSON enthält die Referenz
 - auf die Daten im CKAN Open Data Portal:
 -     {
--         "apiUrl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
+-         "apiurl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
 -     }
 -
 - @param {Object} configdata - Alle Konfigurationsdaten der App
@@ -482,12 +481,10 @@ function app(configdata = [], enclosingHtmlDivElement) {
 /\*
 
 - Diese Funktion kann Bibliotheken und benötigte Skripte laden.
-- Sie hängt den zurückgegebenen HTML Code in die Head Section an.
 
 - @returns {string} - HTML mit script, link, etc. Tags
   \*/
   function addToHead() {
-  return ``;
   }
 ```
 
