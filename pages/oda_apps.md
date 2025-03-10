@@ -45,7 +45,7 @@ In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) en
 
 Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
 
-- `app-entwickler`: siehe ODAS
+- `app-entwickler-id`: siehe ODAS
 - `app-entwickler-name`: siehe ODAS
 - `name-in-url`: wird später beim Aufruf der App in der URL verwendet [a-z0-0-]
 - `name`: Name der App, wie er im ODAS angezeigt wird
@@ -177,7 +177,7 @@ enthalten.
 Die Datei `/app_package.json`
 
 - muss folgende Top-Level Elemente enthalten:
-  - app-entwickler: siehe ODAS
+  - app-entwickler-id: siehe ODAS
   - app-entwickler-name: siehe ODAS
   - name-in-url: Teil der Url
   - name
