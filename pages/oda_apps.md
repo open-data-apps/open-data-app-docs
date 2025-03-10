@@ -434,8 +434,7 @@ die technischen rahmenbedingungen der app sind folgende;
   soll die App von dort die Daten beziehen.
 - die app() funktion muss in Javascript geschrieben werden.
 - Der generierte Content soll ausschließlich in das enclosingHtmlDivElement geladen werden.
-- Mit der Funktion addToHead können Skripte oder Stylesheets per Html Code in den Head
-  der index.html geladen werden.
+- Mit der Funktion addToHead können Skripte oder Stylesheets hinzugefügt werden per Javascript
 - Alles innerhalb der beiden Funktionen ist nur BeispielCode und soll ersetzt werden.
 
 die app soll folendes tun:
