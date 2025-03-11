@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Open Data App Store (ODAS)
+permalink: /open-data-app-store/
 ---
 
 # Der Open Data App Store (ODAS)
