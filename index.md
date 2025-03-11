@@ -19,9 +19,9 @@ Die ODAs hauchen damit den Rohdaten neues Leben ein. Open Data bekommt dadurch v
 
 ## Links
 
-[Open Data App Store](https://open-data-app-store.ckan.de/)
-[Open Data Portalsoftare CKAN](https://ckan.de)
-[CKAN - Open Source](https://github.com/ckan/ckan)
+* [Open Data App Store](https://open-data-app-store.ckan.de/)
+* [Open Data Portalsoftare CKAN](https://ckan.de)
+* [CKAN - Open Source](https://github.com/ckan/ckan)
 
 ## Autor
 
