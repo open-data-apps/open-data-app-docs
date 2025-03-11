@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Open Data Apps (ODA)
-permalink: /oda_apps/
 ---
 
 # Open Data App Spezifikationen
