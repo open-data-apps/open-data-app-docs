@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Open Data App "generic"
+permalink: /oda-generic/
 ---
 
 Die Open Data App "generic" ist als Startpunkt für eigene ODAs konzipiert.
