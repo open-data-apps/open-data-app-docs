@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Automatisierte Erstellung einer ODA mit KI
+permalink: /oda-ki/
 ---
 
 Die ODA sind strukturell so aufgebaut, dass eine
