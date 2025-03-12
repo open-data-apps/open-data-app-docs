@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Open Data App "generic"
+title: Open Data App Generic
 permalink: /oda-generic/
 ---
 
 Die Open Data App "generic" ist als Startpunkt für eigene ODAs konzipiert.
 
-Sie ist Vorlage und Musterbeispiel einer ODA und entspricht den Vorgaben der [ODA Spezifikation](open-data-app-spezifikation).
+Sie ist Vorlage und Musterbeispiel einer ODA und entspricht den Vorgaben der [ODA Spezifikation]({{ site.baseurl }}/open-data-app-spezifikation).
 
 ## Inhalt
 
@@ -74,9 +74,9 @@ Die Open Data App "generic" bietet folgende Basisfunktionen:
 
 - **Docker-Umgebung nutzen**: Mit den bereitgestellten `Dockerfile` und `docker-compose.yml` Dateien kannst du eine konsistente Entwicklungs- und Produktionsumgebung aufbauen.
 - **Live Server Extension** Die Live Server Extension ermöglicht ebenfalls eine gute alternative zu Docker zum entwicklen [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-- **KI-Prompt für App.js**: Nutze KI-Prompts, um den Code in `app/app.js` zu optimieren und zu erweitern. Detaillierte Anleitungen findest du in der [KI-Prompt Dokumentation](oda-ki).
+- **KI-Prompt für App.js**: Nutze KI-Prompts, um den Code in `app/app.js` zu optimieren und zu erweitern. Detaillierte Anleitungen findest du in der [KI-Prompt Dokumentation]({{ site.baseurl }}/oda-ki).
 - **Modularer Aufbau**: ODAS Tools ermöglichen einen Austausch aller Base-Dateien in allen Apps gleichzeitig – mithilfe eines Makefiles, das auch weitere Entwicklerhilfen enthält. Weitere Informationen dazu findest du unter [ODAS Tools](#placeholder).
 
 ---
 
-[zurück zum Index](index)
+[zurück zum Index]({{ site.baseurl }}/index)
