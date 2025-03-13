@@ -501,3 +501,7 @@ Website: [ondics.de
 ](https://ondics.de)
 
 (C) 2025 Ondics GmbH
+
+---
+
+[zurück zum Index]({{ site.baseurl }}/index)
