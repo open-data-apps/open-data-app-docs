@@ -58,6 +58,7 @@ Erstelle die app. fülle dazu die funktion app() {} und ggf. addToHead() {}
 
 hier ist der code-template:
 
+```
 /\*
 
 - Diese Funktion ist für die Inhalte der Startseite
@@ -97,6 +98,8 @@ function app(configdata = [], enclosingHtmlDivElement) {
 
   }
 
+```
+
 ## Beispiel: Ein automatsierte erstellte ODA
 
 Folgend ist ein Beispiel für die Erstellung eines Ping Pong Spiels.
@@ -130,6 +133,8 @@ Aufgabe:
 Erstelle die app. fülle dazu die funktion app() {} und ggf. addToHead() {}
 
 hier ist der code-template:
+
+```
 
 /\*
 
@@ -171,6 +176,12 @@ function app(configdata = [], enclosingHtmlDivElement) {
 
   }
 
+```
+
 ---
 
 [zurück zum Index]({{ site.baseurl }}/index)
+
+```
+
+```
