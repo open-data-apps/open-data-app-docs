@@ -181,7 +181,3 @@ function app(configdata = [], enclosingHtmlDivElement) {
 ---
 
 [zurück zum Index]({{ site.baseurl }}/index)
-
-```
-
-```
