@@ -133,15 +133,16 @@ hier ist der code-template:
 
 /\*
 
-- Diese Funktion ist für die Inhalte der Startseite
-- zuständig.
+- Diese Funktion ist für die Inhalte der Startseite zuständig.
 -
 - Der umschließebde HTML code ist:
+-
 -      <body>
 -      <div class="container mt-4" id="main-content">
 -          ...
 -      </div>
 -      </body>
+-
 - Als CSS Framnework wird Bootstrap 5.3 verwendet.
 -
 - ConfigData ist ein JSON enthält die Referenz
