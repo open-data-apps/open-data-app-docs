@@ -92,7 +92,6 @@ function app(configdata = [], enclosingHtmlDivElement) {
 - Diese Funktion kann Bibliotheken und benötigte Skripte laden.
 - Sie hängt die Skripte und Stylesheets in die Head Section an.
 
-- @returns {string} - HTML mit script, link, etc. Tags
   \*/
   function addToHead() {
 
@@ -170,7 +169,6 @@ function app(configdata = [], enclosingHtmlDivElement) {
 - Diese Funktion kann Bibliotheken und benötigte Skripte laden.
 - Sie hängt die Skripte und Stylesheets in die Head Section an.
 
-- @returns {string} - HTML mit script, link, etc. Tags
   \*/
   function addToHead() {
 
