@@ -99,6 +99,14 @@ Folgende Dateinamen ist nicht zulässig:
 
 - `_odp-logo.png`
 
+### ODA Styling
+
+ODA sollten gleiche CSS-grundlagen verwenden. Im ODAS kann der ODP-Portalbetreiber ein 
+eigenes CSS hinterlegen und damit das Corporate Design so anpassen, dass es nach dem
+Betreiber, der Stadt oder dem Open Data Portal aussieht.
+
+Ein Beipiel für ein ODA-CSS ist hier zu finden: https://github.com/open-data-apps/oda-generic/blob/master/app/app-base.css
+
 #### Aufbau der `instanz-config`
 
 Die `instanz-config` definiert, wie das Formular zur Bearbeitung der Konfiguration durch den
