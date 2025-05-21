@@ -6,7 +6,12 @@ permalink: /open-data-app-services/
 
 # Open Data App Services
 
-Jede App kann auf Dienste im ODAS zurückgreifen. 
+Jede App kann auf Dienste im ODAS zurückgreifen. Die Dienste sind 
+aus verschiedenen Gründen im ODAS realisiert:
+
+* die App kann klein und schlank bleiben
+* App-Tokens und andere Geheimnisse müssen nicht in der App stehen
+* Gewährleistung der App-Sicherheit
 
 Folgende Dienste sind verfügbar:
 
