@@ -16,6 +16,8 @@ Die ODAs hauchen damit den Rohdaten neues Leben ein. Open Data bekommt dadurch v
 * [Open Data App Store]({{ site.baseurl }}/open-data-app-store)
 * [Die "ODA generic" - Vorlage für eigene ODAs]({{ site.baseurl }}/oda-generic)
 * [Automatisierte Erstellung einer ODA mit KI]({{ site.baseurl }}/oda-ki)
+* [Open Data App Services]({{ site.baseurl }}/open-data-app-services)
+
 
 ## Links
 
