@@ -1,3 +1,9 @@
+---
+layout: default
+title: Open Data App Services
+permalink: /open-data-app-services/
+---
+
 # Open Data App Services
 
 Jede App kann auf Dienste im ODAS zurückgreifen. 
