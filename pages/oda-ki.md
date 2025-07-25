@@ -75,7 +75,7 @@ hier ist der code-template:
 - ConfigData ist ein JSON enthält die Referenz
 - auf die Daten im CKAN Open Data Portal:
 -     {
--         "apiUrl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
+-         "apiurl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
 -     }
 -
 - @param {Object} configdata - Alle Konfigurationsdaten der App
@@ -152,7 +152,7 @@ hier ist der code-template:
 - ConfigData ist ein JSON enthält die Referenz
 - auf die Daten im CKAN Open Data Portal:
 -     {
--         "apiUrl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
+-         "apiurl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
 -     }
 -
 - @param {Object} configdata - Alle Konfigurationsdaten der App
