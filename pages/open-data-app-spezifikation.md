@@ -55,6 +55,11 @@ Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
 - `kurzbeschreibung`: kurze Beschreibung der App (für ODP-Betreiber)
 - `beschreibung`: Beschreibung der App (für ODP-Betreiber). Hier sollten Funktionweise, Datenformate, Konfigurationen etwas stehen
 - `screenshots`: Array mit mehreren Screenshots. Müssen in `assets` liegen
+- `daten`: 
+    - `beschreibung`: Beschreibung der Daten und Hinweis auf das Format (z.B. CSV)
+    - `schema`: Schemadatei gemäß Frictionless Data, z.B. assets/schema.json 
+    - `beispiel`: Beispieldaten die mitgeliefert werden, z.B. assets/daten-beispiel.csv
+    - `beispiel-url`: Url auf bestehende Daten in einem ODP 
 - `apiversion`: Version der config-API. Muss aktuell 1.0 sein
 - `instanz-config`: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber (siehe unten)
 
@@ -224,6 +229,12 @@ im Verzeichnis `/assets` liegen.
     "Desktop_Screenshot.png",
     "Mobile_Screenshot.png"
   ],
+  "daten": {
+    "beschreibung": "Die Daten des Baumkatasters enthalten Informationen zu den einzelnen Bäumen in der Kommune, wie z.B. Baumart, Pflanzjahr, Standort (Koordinaten), Stadtbezirk, Standalter, Baumhöhe und weitere Merkmale. Format: CSV",
+    "schema": "assets/schema.json",
+    "beispiel": "assets/daten-beispiel.csv",
+    "beispiel-url": "https://open-data.dortmund.de/api/explore/v2.1/catalog/datasets/baumkataster/exports/csv?delimiter=%3B&limit=5"
+  },
   "api-version": "1",
   "instanz-config": {
     "seitentitel": {
