@@ -519,7 +519,7 @@ Kontakt: [info@ondics.de
 Website: [ondics.de
 ](https://ondics.de)
 
-(C) 2025 Ondics GmbH
+(C) 2026 Ondics GmbH
 
 ---
 

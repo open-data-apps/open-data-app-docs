@@ -27,4 +27,4 @@ Die ODAs hauchen damit den Rohdaten neues Leben ein. Open Data bekommt dadurch v
 
 ## Autor
 
-(C) 2025 [Ondics GmbH](https://ondics.de)
+(C) 2026 [Ondics GmbH](https://ondics.de)

@@ -6,4 +6,4 @@ Das Repo ist als Github Pages Website verfügbar unter [https://ondics.github.io
 ](https://open-data-apps.github.io/open-data-app-docs/)
 ## Autor
 
-(C) 2025 [Ondics GmbH](https://ondics.de)
+(C) 2026 [Ondics GmbH](https://ondics.de)
