@@ -9,11 +9,11 @@ permalink: /open-data-app-store/
 Im ODAS können App-Entwickler ODAs veröffentlichen.
 Zudem können Open Data Portalbetreiber diese ODAs ihrem Portal zuordnen.
 
-Für einfache Interaktionen steht im ODAS eine Email-API zur Verfügung.
+Für einfache Interaktionen steht im ODAS eine E-Mail-API zur Verfügung.
 
-Emails dürfen nur an die im ODAS konfigurierte Email-Adresse versendet werden.
+E-Mails dürfen nur an die im ODAS konfigurierte E-Mail-Adresse versendet werden.
 
-Der ODAS ist aktuell erreichbar unter [Open Data App Store](https://open-data-app-store.ckan.de/)
+Der ODAS ist erreichbar unter [Open Data App Store](https://open-data-app-store.de/)
 
 ## ODAS für Open Data Portalbetreiber
 
@@ -35,11 +35,9 @@ Im ODAS können ODA-Entwickler
 
 ## Autor und Kontakt
 
-Kontakt: [info@ondics.de
-](info@ondics.de)
+Kontakt: [info@ondics.de](mailto:info@ondics.de)
 
-Website: [ondics.de
-](https://ondics.de)
+Website: [ondics.de](https://ondics.de)
 
 (C) 2026 Ondics GmbH
 

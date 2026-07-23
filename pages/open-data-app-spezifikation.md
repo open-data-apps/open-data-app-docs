@@ -4,253 +4,282 @@ title: Open Data Apps (ODA)
 permalink: /open-data-app-spezifikation/
 ---
 
-# Open Data App Spezifikationen
+# Open Data App Spezifikation
 
-Eine Open Data App (ODA) ist eine nützliche Web-App, die Daten aus einem Open Data Portal bezieht und damit interagiert, beispielsweise durch Visualisierung.
+Eine Open Data App (ODA) ist eine statische Web-App, die offene Daten aus einem Open Data Portal lädt, visualisiert oder anderweitig nutzbar macht. ODAs können im Open Data App Store (ODAS) veröffentlicht und dort von Portalbetreibern für ihr eigenes Portal konfiguriert werden.
 
-ODAs ermöglichen den einfachen visuellen Zugang zu öffentlichen Daten und fördern Open Data Sichtbarkeit, Transparenz und Innovation.
+Diese Spezifikation trennt drei Ebenen:
 
-Eine ODA kann in einem Open Data App Store (ODAS) veröffentlicht werden.
+- **Muss**: notwendig für ODAS-Kompatibilität.
+- **Empfohlen**: Konventionen aus der Vorlage `oda-generic`, damit Apps gut wartbar und leicht prüfbar bleiben.
+- **Ondics-Standard**: unser interner bzw. Showcase-Qualitätsanspruch für besonders sorgfältig ausgearbeitete Apps.
 
-## Vorbemerkung
+## ODAS-Kompatibilität
 
-In diesem Dokument wird **soll**, **muss**, **darf** und **kann** verwendet und das ist auch genauso gemeint!
+Eine ODA muss:
 
-## Architektur einer ODA
+- aus statischen Dateien bestehen, insbesondere HTML, CSS, JavaScript und Assets.
+- im Browser laufen und ohne eigenes Backend auskommen.
+- ihre Laufzeitkonfiguration über den ODAS beziehen.
+- ein Web-UI mit Hauptinhalt, Beschreibung, Kontakt, Impressum und Datenschutz-Informationen bereitstellen.
+- alle app-spezifischen Metadaten in einer Datei `app-package.json` im Projektwurzelverzeichnis beschreiben.
+- offene Daten aus einer konfigurierten oder dokumentierten Datenquelle laden.
+- genau die Funktion ausführen, die in Beschreibung und Metadaten angegeben ist.
+- frei von Schadcode sein und keine geheimen Tokens, Passwörter oder privaten Schlüssel enthalten.
 
-Eine ODA ...
+Eine ODA darf zusätzliche JavaScript- oder CSS-Bibliotheken verwenden, solange diese für die App-Funktion notwendig oder nachvollziehbar sind und keine Sicherheitsrisiken erzeugen.
 
-- besteht aus statischen Dateien (js, html, css).
-- sollte alle statischen Dateien aus dem ODAS beziehen.
-- muss alle Daten aus einem Open Data Portal beziehen.
-- muss ein Web-UI haben, das folgende Inhalte enthält: Beschreibung, Kontakt, Datenschutz-Informationen, Impressum, Header, Footer.
-- muss ihre Konfiguration über den ODAS beziehen (Config-Datei).
-- wird mit einem Link gestartet.
-- läuft in einem Browser-Fenster (nicht im IFRAME???).
-- besitzt eine Datei `app_package.json`, in der die Konfiguration der ODA beschreiben ist
+## Empfohlene Architektur
 
-Die ODA ist grundsätzlich serverless.
+Für neue Apps wird die Vorlage [`oda-generic`](https://github.com/open-data-apps/oda-generic) empfohlen. Sie definiert den üblichen Aufbau:
 
-## Funktion einer ODA
+```text
+oda-example/
+├── app/
+│   ├── index.html
+│   ├── app-base.js
+│   ├── app-base.css
+│   ├── app.js
+│   ├── app.css
+│   ├── favicon.png
+│   └── logo_ondics.png
+├── assets/
+│   ├── odas-app-icon.svg
+│   ├── Desktop_Screenshot.png
+│   ├── Mobile_Screenshot.png
+│   ├── branding.css
+│   └── schema.json
+├── odas-config/
+│   └── config.json
+├── app-package.json
+├── CHANGELOG.md
+├── README.md
+├── Dockerfile
+├── docker-compose.yml
+├── nginx.conf
+└── Makefile
+```
 
-- Die ODA tut genau das, was in der Beschreibung ausgeführt ist
-- Eine ODA darf keinen Schadcode enthalten oder nachladen.
-- Eine ODA darf nichts Betrügerisches tun.
+Bei Verwendung von `oda-generic` gilt als empfohlene Konvention:
 
-### Die Datei `app_package.json`
+- App-spezifisches JavaScript liegt in `app/app.js`.
+- App-spezifisches CSS liegt in `app/app.css`.
+- `app/app-base.js`, `app/app-base.css` und `app/index.html` bilden die Laufzeitvorlage und müssen für normale App-Entwicklung nicht angepasst werden.
+- Die Hauptfunktion heißt `function app(configdata, enclosingHtmlDivElement)`.
+- `addToHead()` steht außerhalb von `app()` und wird verwendet, wenn zusätzliche Ressourcen geladen werden müssen.
+- Bootstrap 5.3.8 kann direkt über die Vorlage genutzt werden.
 
-Die Datei `app_package.json` liegt im Root Verzeichnis der ODA.
+Andere statische Implementierungen sind möglich, solange sie die ODAS-Kompatibilität erfüllen.
 
-In der Datei sind alle Metadaten zur App (Lizenz, Version, Konfiguration,...) enthalten.
+## `app-package.json`
 
-Die Datei `/app_package.json` muss folgende Top-Level Elemente enthalten:
+Die Datei `app-package.json` enthält Metadaten, Datenbeschreibung und die Konfigurationsfelder, aus denen ODAS die Instanz-Konfiguration erzeugt.
 
-- `app-entwickler-id`: siehe ODAS
-- `app-entwickler-name`: siehe ODAS
-- `name-in-url`: wird später beim Aufruf der App in der URL verwendet [a-z0-0-]
-- `name`: Name der App, wie er im ODAS angezeigt wird
-- `version`: Versionsnummer (Format: 1.2.3)
-- `odas-app-icon`: Icon der App für die Anzeige im ODAS. Dateiname ohne Pfad. Datei muss in /assets liegen. Größe: 512x512px. Format: png, jpg, svg
-- `app-icon`: Icon der App für die Anzeige in der App z.B. links oben Datei muss in /app liegen. Größe: 1:3 Verhältnis, z.B. 60px Breite x 180px Höhe. Format: png, jpg, svg
-- `kurzbeschreibung`: kurze Beschreibung der App (für ODP-Betreiber)
-- `beschreibung`: Beschreibung der App (für ODP-Betreiber). Hier sollten Funktionweise, Datenformate, Konfigurationen etwas stehen
-- `screenshots`: Array mit mehreren Screenshots. Müssen in `assets` liegen
-- `daten`: 
-    - `beschreibung`: Beschreibung der Daten und Hinweis auf das Format (z.B. CSV)
-    - `schema`: Schemadatei gemäß Frictionless Data, z.B. assets/schema.json 
-    - `beispiel`: Beispieldaten die mitgeliefert werden, z.B. assets/daten-beispiel.csv
-    - `beispiel-url`: Url auf bestehende Daten in einem ODP 
-- `apiversion`: Version der config-API. Muss aktuell 1.0 sein
-- `instanz-config`: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber (siehe unten)
+Wichtige Top-Level-Felder sind:
 
-#### Multiline-Strings in `app_package.json`
+- `app-entwickler-id`: ID des Entwicklerkontos, siehe ODAS.
+- `app-entwickler-name`: Name des Entwicklerkontos, siehe ODAS.
+- `name-in-url`: wird beim Aufruf der App in der URL verwendet; nur Kleinbuchstaben, Zahlen und Bindestriche (`[a-z0-9-]`).
+- `name`: Name der App, wie er im ODAS angezeigt wird.
+- `version`: Versionsnummer im Format `1.2.3`.
+- `odas-app-icon`: Icon der App für die Anzeige im ODAS. Datei muss im Lieferumfang liegen, üblicherweise unter `assets/`. Empfohlen: quadratisch (ca. 512x512px), Format PNG, JPG oder SVG. Eine Prompt-Vorlage zur KI-Erstellung des Icons: [odas-app-icon-prompt](https://github.com/open-data-apps/odas-app-icon-prompt).
+- `app-icon`: Icon für die Anzeige in der App selbst (links oben in der Kopfzeile), Seitenverhältnis ca. 1:3 (z.B. 100 px hoch, 300 px breit). In der Vorlage zeigen beide Icon-Felder auf `assets/odas-app-icon.svg`.
+- `kurzbeschreibung`: kurze Beschreibung der App für Portalbetreiber.
+- `beschreibung`: ausführlichere Store-Beschreibung für Portalbetreiber; hier sollten Funktionsweise, Datenformate und Konfigurationsmöglichkeiten stehen.
+- `tags-funktion`, `tags-dateityp`, `tags-datenart`: Schlagwörter zur Einordnung der App im ODAS (Funktion, Dateityp, Datenart).
+- `screenshots`: Array mit Screenshot-Pfaden; die Dateien müssen unter `assets/` liegen und werden relativ ohne führenden Slash angegeben.
+- `daten`: Beschreibung der erwarteten Daten (siehe [Daten und Assets](#daten-und-assets)).
+- `branding-css`: optionaler Pfad zu einer mitgelieferten Branding-CSS-Datei (siehe [ODA-Styling](#oda-styling)).
+- `api-version`: Version der ODAS-Config-API, aktuell `"1"`.
+- `instanz-config`: Formularspezifikation für die Konfiguration der App-Instanz durch den Portalbetreiber (siehe unten).
 
-Wenn längerer Text in einem Wert enthalten sein soll, kann dieser
-als "Multiline-String" definiert werden.
+Apps mit `api-version: "1"` werden in dieser Doku als **ODAS-v1-Apps** bezeichnet; das ist die aktuelle Version der ODAS-Config-API.
 
-Jeder Wert inder `app_package.json`, der ein Array von Strings ist und
-der erste String ein "_multiline_" ist, wird als Multiline-String interpretiert.
+## `instanz-config`
+
+`instanz-config` beschreibt die Formularfelder, die ein Portalbetreiber im ODAS pro App-Instanz ausfüllt. Jeder Key muss eindeutig sein und sollte genau den Namen verwenden, den die App im `configdata` liest.
+
+Ein Feld enthält typischerweise:
+
+- `label`: sichtbare Feldbezeichnung.
+- `hilfe`: kurzer Hilfetext.
+- `format`: Datentyp und optionale Zusatzangaben.
+- `default`: Vorbelegung.
+- `beispiel`: optionales Beispiel.
+- `erforderlich`: `"ja"` oder `"nein"`.
+
+Robust unterstützte und empfohlene `format.typ`-Werte für ODAS-v1 sind:
+
+- `string`
+- `url`
+- `dropdown`
+- `markdown`
+- `image`
+
+Zahlen sollten in `instanz-config` als Strings gespeichert und in der App bei Bedarf mit `Number(...)`, `parseInt(...)` oder ähnlichen Funktionen umgewandelt werden. Das vermeidet Probleme in Import- und Editorpfaden.
+
+Die Typnamen werden exakt kleingeschrieben verwendet: `string`, nicht `String`; Typen wie `Zahl` oder `number` gehören nicht zu den oben genannten, für ODAS-v1 robusten Typen. Auch die Key-Namen sind kanonisch: Der Datenendpunkt heißt `apiurl` (komplett klein), die Datensatzseite `urlDaten`. Parallele Legacy-Schreibweisen wie `apiUrl` oder doppelte `urldaten`/`urlDaten`-Definitionen sollen nicht neu eingeführt werden.
+
+`dropdown`-Felder schreiben ihre Vorbelegung als Feld-`default`; `format` enthält den Typ und die Optionen:
+
+```json
+{
+  "default": "nein",
+  "format": {
+    "typ": "dropdown",
+    "optionen": ["nein", "ja"]
+  }
+}
+```
+
+### Multiline und Rich Text
+
+Längere Werte können als String-Array mit dem Marker `_multiline_` gespeichert werden: Jeder Wert in der `app-package.json`, der ein Array von Strings ist und dessen erster String `"_multiline_"` lautet, wird als Multiline-String interpretiert. Der Marker wird entfernt und die übrigen Zeilen werden verbunden.
 
 Beispiel für einen Wert, der als Multiline-String definiert ist:
 
-```
+```json
 {
-  ...
   "mehrzeiliger-string": [
     "_multiline_",
-    "erste zeile ",
+    "erste Zeile ",
     "zweite Zeile\n",
     "dritte Zeile"
-  ],
-  ...
+  ]
 }
 ```
 
 Dieser Wert wird im ODAS interpretiert als:
 
-```
-  "mehrzeiliger-string":"erste zeile zweite Zeile\ndritte Zeile"
-```
-
-Ein vollständiges Beispiel für ein app_packages ist unten dargestellt.
-
-### ODA-Assets
-
-ODA-Assets sind statische Dateien, die von der App benötigt werden, z.B. CSS-Dateien, Icons, ...
-
-Die ODA-Assets sind im Verzeichnis `/assets` zu speichern.
-
-Folgende Dateinamen ist nicht zulässig:
-
-- `_odp-logo.png`
-
-### ODA Styling
-
-ODA sollten gleiche CSS-grundlagen verwenden. Im ODAS kann der ODP-Portalbetreiber ein 
-eigenes CSS hinterlegen und damit das Corporate Design so anpassen, dass es nach dem
-Betreiber, der Stadt oder dem Open Data Portal aussieht.
-
-Ein Beipiel für ein ODA-CSS ist hier zu finden: https://github.com/open-data-apps/oda-generic/blob/master/app/app-base.css
-
-#### Aufbau der `instanz-config`
-
-Die `instanz-config` definiert, wie das Formular zur Bearbeitung der Konfiguration durch den
-Open Data Portalbetreiber aufgebaut ist (siehe unten).
-
-Es wird jedes Feld des Konfigurationsformulars für diese ODA einzeln spezifiert.
-Der App-Entwickler legt die Felder selber fest, die zur Konfiguration der App benötigt werden.
-
-Aufbau der `instanz-config`:
-
-Der Key (z.B. `titel`) muss eindeutig sein.
-
-Feld-Angaben:
-
-- `label`: beschreiftung des Feldes
-- `hilfe`: Kurzhilfe, was mit dem Feld eingegeben werden soll
-
-* `erforderlich`: "ja" oder "nein"
-* `format`: Format des Feldes. Als Formate sind zulässig:
-  - string (mit Längenangabe `laenge`
-  - html
-  - url
-  - email
-  - markdown
-  - image (das image muss über als ODA-Asset gespeichert sein
-* `default`: Vorbelegungen können mit dem `default` Key angegeben werden
-
-Beispiel für `instanz-config`:
-
-```
-  "instanz-config": {
-    "titel": {
-      "label": "Titel",
-      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt",
-      "default": "Generic Open Data App",
-      "format": {
-        "typ": "string",
-        "laenge": 50
-      },
-      "erforderlich": "ja"
-    },
-    "icon": {
-      "label": "App-Icon",
-      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt",
-      "format": {
-        "typ": "image",
-        "hoehe": 100,
-        "breite": 300
-      },
-      "erforderlich": "ja"
-    },
-    "kontakt": {
-      "label": "Kontakt",
-      "hilfe": "Der Text wird im Menüpunkt 'Kontakt' anzeigt",
-      "format": {
-        "typ": "markdown"
-      },
-      "default": [
-        "_multiline_",
-        "Bei Fragen zur App wenden Sie sich bitte an: ",
-        "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
-        "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
-        "E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>"
-      ],
-      "erforderlich": "ja"
-    },
-
+```json
+{
+  "mehrzeiliger-string": "erste Zeile zweite Zeile\ndritte Zeile"
+}
 ```
 
-### Veröffentlichung einer ODA im ODAS
+`format.typ: "markdown"` ist der ODAS-v1-Feldtyp für Rich Text. Felder dieses Typs werden in Markdown verfasst: Überschriften mit `##`, Listen mit `-`, Links mit `[Text](URL)`. ODAS wandelt das Markdown vor der Auslieferung der Konfiguration an die App in HTML um; die App rendert das Ergebnis unverändert (z.B. per `innerHTML`). Portalbetreiber können Felder wie Impressum, Kontakt oder Beschreibung dadurch ohne HTML-Kenntnisse pflegen.
 
-Eine ODA muss eine Datei `/app_package.json` haben. In der sind
-alle Metadaten zur App (Lizenz, Version, Konfiguration,...)
-enthalten.
+**Hinweis zur Übergangsphase:** Bestehende Apps und Konfigurationen enthalten in Markdown-Feldern teilweise direkt HTML (z.B. `<h2>`, `<p>`, `<ul>`). Das bleibt während der Übergangsphase gültig; für neue und überarbeitete Inhalte ist Markdown der Standard. Das Beispiel-`app-package.json` weiter unten zeigt den aktuellen Stand der Vorlage `oda-generic` und enthält deshalb noch HTML-Defaults.
 
-Die Datei `/app_package.json`
+Statische Beschreibungstexte bleiben im bestehenden Feld `beschreibung`; dafür werden keine zusätzlichen Config-Keys angelegt. Die Datenquellenbeschreibung verlinkt, soweit Werte vorhanden sind, vom Open Data Portal über die Datensatzseite bis zur tatsächlich verwendeten Ressource oder API.
 
-- muss folgende Top-Level Elemente enthalten:
-  - app-entwickler-id: siehe ODAS
-  - app-entwickler-name: siehe ODAS
-  - name-in-url: Teil der Url
-  - name
-  - version
-  - odas-app-icon
-  - app-icon
-  - kurzbeschreibung
-  - beschreibung
-  - screenshots
-  - apiversion
-  - instanz-config: Formularspezifikation zur Konfiguration der Config-Datei durch den Open Data Portalbetreiber
+## Konfiguration
 
-Die in der ODA enthaltenen statischen Dateien sollten
-im Verzeichnis `/assets` liegen.
+Zur Laufzeit erhält die App ein `configdata`-Objekt aus dem ODAS. Bei `oda-generic` werden unter anderem diese Basisfelder verwendet:
 
-## Vollständiges Beispiel einer `app_package.json`
+- `titel`
+- `seitentitel`
+- `icon`
+- `fusszeile`
+- `kontakt`
+- `impressum`
+- `datenschutz`
+- `beschreibung`
+- `brandingCSS`
+- `brandingCSSFile`
 
+Empfohlen ist: Jeder app-spezifische Key, den `app/app.js` liest, ist auch in `app-package.json` unter `instanz-config` dokumentiert. Für lokale Tests spiegelt `odas-config/config.json` diese Werte. `odas-config/config.json` ist dabei eine lokale Entwicklungsdatei; im ODAS wird die produktive Konfiguration aus den App-Metadaten und der jeweiligen Instanz erzeugt. Beim Anlegen einer App-Instanz übernimmt der ODAS zunächst die `default`-Werte und die in der `app-package.json` eingetragenen Werte; der Portalbetreiber passt sie anschließend über das Konfigurationsformular an.
+
+## Daten und Assets
+
+Der Abschnitt `daten` in `app-package.json` beschreibt die erwarteten Daten:
+
+- `beschreibung`: kurze Erklärung der Quelle und des Formats.
+- `schema`: Pfad zu einem [Frictionless Table Schema](https://specs.frictionlessdata.io/table-schema/), bei neuen Apps `assets/schema.json`.
+- `beispiel`: optionaler Hinweis auf Beispieldaten.
+- `beispiel-url`: Beispiel-URL zu einer echten Datenquelle oder Ressource.
+
+Assets liegen üblicherweise unter `assets/`. Screenshotpfade werden relativ und ohne führenden Slash angegeben. Das Store- und Runtime-Icon zeigen im Normalfall beide auf `assets/odas-app-icon.svg`. Alle referenzierten Dateien müssen im aktiven ZIP-Lieferumfang vorhanden sein.
+
+Der Dateiname `_odp-logo.png` ist in `assets/` nicht zulässig; er ist für den ODAS reserviert.
+
+Neue Apps liefern ein echtes Frictionless Table Schema mit einem flachen `fields`-Array. Ein leeres Objekt, Nutzdaten anstelle eines Schemas oder ein allgemeines JSON Schema erfüllen diese Konvention nicht.
+
+## ODA-Styling
+
+ODAs sollen gleiche CSS-Grundlagen verwenden, damit sie sich in jedes Open Data Portal einheitlich einfügen. Die Basis bilden Bootstrap 5.3.8 und die Vorlagen-Datei [`app/app-base.css`](https://github.com/open-data-apps/oda-generic/blob/master/app/app-base.css) aus `oda-generic`; app-spezifisches Styling kommt zusätzlich in `app/app.css`.
+
+Portalbetreiber können das Corporate Design pro App-Instanz anpassen, sodass die App nach dem Betreiber, der Stadt oder dem Open Data Portal aussieht. Dafür gibt es zwei Laufzeit-Konfigurationsfelder:
+
+- `brandingCSS`: eigener CSS-Code für die konkrete Instanz.
+- `brandingCSSFile`: URL zu einer eigenen CSS-Datei.
+
+Die Vorlage liefert außerdem `assets/branding.css` als mitgelieferte Branding-Basisdatei mit; das Top-Level-Feld `branding-css` in `app-package.json` kann auf eine solche Datei zeigen.
+
+## CORS und ODAS-Proxy
+
+Viele offene Datenquellen lassen sich direkt im Browser laden. Wenn eine Quelle CORS blockiert oder aus Sicherheitsgründen nicht direkt angesprochen werden soll, kann der ODAS-Proxy verwendet werden.
+
+Für proxy-fähige Apps wird der Konfigurationsschalter `proxyAktiv` empfohlen:
+
+```json
+"proxyAktiv": {
+  "label": "ODAS-Proxy aktivieren",
+  "hilfe": "Mit ja werden Datenabrufe über den ODAS-Proxy gesendet. Echte Proxy-Aufrufe sind nur im ODAS-Live-System prüfbar.",
+  "default": "nein",
+  "format": {
+    "typ": "dropdown",
+    "optionen": ["nein", "ja"]
+  },
+  "erforderlich": "ja"
+}
 ```
+
+Der Schalter ist keine allgemeine Pflicht. Er ist sinnvoll, wenn Portalbetreiber bewusst zwischen Direktabruf und Proxy-Betrieb wählen sollen.
+
+Der Proxy-Aufruf verwendet `POST`. Im URL-kodierten Parameter `path` wird nur der Pfad einschließlich Query der Zielressource übertragen, nicht die vollständige externe URL. Die Proxy-Antwort enthält die Nutzdaten als String im Feld `content`. Echte Proxy-Antworten werden im ODAS-Live-System getestet; lokal werden Konfiguration, Statusanzeige und Direktmodus geprüft.
+
+## Auslieferung
+
+Der Lieferumfang wird durch das jeweilige `Makefile` bestimmt. In der aktuellen `oda-generic`-Vorlage packt `make zip`:
+
+- `app/`
+- `assets/`
+- `app-package.json`
+- `CHANGELOG.md`
+
+Dateien wie `odas-config/`, lokale Tests, Tools oder Demo-Daten sind nur dann online verfügbar, wenn das aktive `Makefile` sie ausdrücklich in die ZIP-Datei aufnimmt.
+
+Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` übereinstimmen. Für neue Einträge wird das Format `## X.Y.Z - YYYY-MM-DD` verwendet.
+
+## Gekürztes Beispiel `app-package.json`
+
+{% raw %}
+```json
 {
   "app-entwickler-id": "12343",
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "generic",
   "name": "Generic Open Data App",
-  "version": "1.0.0",
-  "odas-app-icon": "assets/odas-app-icon.png",
-  "app-icon": "assets/app-icon.png",
-  "kurzbeschreibung": "Diese Open Data App ist Anschauungsobjekt und Musterbeispiel für weitere Apps.",
+  "version": "1.1.0",
+  "odas-app-icon": "assets/odas-app-icon.svg",
+  "app-icon": "assets/odas-app-icon.svg",
+  "kurzbeschreibung": "Technische ODAS-Vorlage mit Routing, Instanz-Konfiguration und Proxy-Muster.",
   "beschreibung": [
     "_multiline_",
-    "Die Open Data App ist Musterbeispiel für weitere Apps. Inhaltlich macht sie ",
-    "fast nichts, sondern zeigt nur die Config Daten an. ",
-    "Die Daten werden aus einem Open Data Portal bezogen. ",
-    ""
+    "Die Generic Open Data App ist die technische Ausgangsbasis fuer neue ODAS-Apps.",
+    "Vor einer Veroeffentlichung werden Fachlogik, Metadaten und Datenmodell ersetzt."
   ],
+  "tags-funktion": ["Vorlage", "Konfigurationsvorschau", "Proxy"],
+  "tags-dateityp": ["JSON"],
+  "tags-datenart": ["Konfigurationsdaten"],
   "screenshots": [
-    "Desktop_Screenshot.png",
-    "Mobile_Screenshot.png"
+    "assets/Desktop_Screenshot.png",
+    "assets/Mobile_Screenshot.png"
   ],
   "daten": {
-    "beschreibung": "Die Daten des Baumkatasters enthalten Informationen zu den einzelnen Bäumen in der Kommune, wie z.B. Baumart, Pflanzjahr, Standort (Koordinaten), Stadtbezirk, Standalter, Baumhöhe und weitere Merkmale. Format: CSV",
+    "beschreibung": "Die Vorlage enthaelt ein gueltiges Frictionless-Beispielschema.",
     "schema": "assets/schema.json",
-    "beispiel": "assets/daten-beispiel.csv",
-    "beispiel-url": "https://open-data.dortmund.de/api/explore/v2.1/catalog/datasets/baumkataster/exports/csv?delimiter=%3B&limit=5"
+    "beispiel": "Vor der Veroeffentlichung durch app-spezifische Angaben ersetzen.",
+    "beispiel-url": ""
   },
+  "branding-css": "",
   "api-version": "1",
   "instanz-config": {
     "seitentitel": {
       "label": "Seitentitel",
-      "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt",
-      "default": "Generic ODA",
-      "format": {
-        "typ": "string",
-        "laenge": 50
-      },
-      "erforderlich": "ja"
-    },
-    "lizenz": {
-      "label": "Lizenz",
-      "hilfe": "Angabe der Lizenz, die für die Nutzung der App gilt.",
-      "default": "Open Software License (OSL)",
+      "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt.",
+      "default": "Generic Open Data App",
       "format": {
         "typ": "string",
         "laenge": 50
@@ -259,7 +288,7 @@ im Verzeichnis `/assets` liegen.
     },
     "titel": {
       "label": "Titel",
-      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt",
+      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt.",
       "default": "Generic Open Data App",
       "format": {
         "typ": "string",
@@ -269,7 +298,8 @@ im Verzeichnis `/assets` liegen.
     },
     "icon": {
       "label": "App-Icon",
-      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt",
+      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt.",
+      "default": "{{{odp.logo}}}",
       "format": {
         "typ": "image",
         "hoehe": 100,
@@ -279,247 +309,200 @@ im Verzeichnis `/assets` liegen.
     },
     "kontakt": {
       "label": "Kontakt",
-      "hilfe": "Der Text wird im Menüpunkt 'Kontakt' anzeigt",
+      "hilfe": "Der Text wird im Menuepunkt Kontakt angezeigt.",
       "format": {
         "typ": "markdown"
       },
       "default": [
         "_multiline_",
-        "Bei Fragen zur App wenden Sie sich bitte an: ",
-        "Tel.: <a href='tel:{{anbieter.telcode}}'>{{anbieter.tel}}</a>",
-        "Fax: <a href='tel:{{anbieter.fax}}'>{{anbieter.faxcode}}</a>",
-        "E-Mail: <a href='mailto:{{anbieter.email}}'>{{anbieter.email}}</a>"
+        "<p>Bei Fragen zur App wenden Sie sich bitte an die im Open Data Portal hinterlegte Kontaktstelle.</p>"
       ],
       "erforderlich": "ja"
     },
     "beschreibung": {
       "label": "Beschreibung",
-      "hilfe": "Der Text wird im Menüpunkt 'Über diese App' anzeigt",
+      "hilfe": "Der Text wird im Menuepunkt Ueber diese App angezeigt.",
       "format": {
         "typ": "markdown"
       },
       "default": [
         "_multiline_",
-        "Die Generic-App zeigt die jeweils definierten Configs.",
-        "Die Daten werden tagesaktuell gehalten. Bei Änderungen versuchen wir, ",
-        "den Datenbestend immer sofort zu aktualisieren.\n ",
-        "## App-Anbieter",
-        "Die App wird bereit gestellt von <a href=\"{{anbieter.url}}\"><{{anbieter.name}}>",
-        "## Daten",
-        "Die Daten kommen aus  unserem Open Data Portal <a href=\"{{odp.url}}\"><{{odp.name}}>",
-        "Die Datenquelle ist in unserem Open Data Portal <a href=\"{{appinstanz.datensatz-url}}\"><{{appinstanz.datensatz-name}}>.",
-        "## App-Entwickler",
-        "Die App wurde entwickelt von <a href=\"{{app.developer-url}}\"><{{app.developer-name}}>. App-Version: {{app.version}}.",
-        "## Open Data App Store",
-        "Der Open Data App Store betrieben von <a href=\"{{odas.betreiber.url}}\"><{{odas.betreiber.name}}>\""
+        "<h2>Ueber diese Vorlage</h2>",
+        "<p>Diese App zeigt die wirksame Instanz-Konfiguration.</p>",
+        "<h2>Datenquelle</h2>",
+        "<p>Die Generic-App laedt absichtlich keinen Fachdatenbestand.</p>"
       ],
       "erforderlich": "ja"
     },
     "impressum": {
       "label": "Impressum",
-      "hilfe": "Der Text wird im Menüpunkt 'Impressum' anzeigt",
+      "hilfe": "Der Text wird im Menuepunkt Impressum angezeigt.",
       "format": {
         "typ": "markdown"
       },
       "default": [
         "_multiline_",
-        "{{anbieter.name}}",
-        "{{anbieter.kontakt-bezeichnung}}",
-        "{{anbieter.strasse}}",
-        "{{anbieter.plzort}}",
-        "Telefon: {{anbieter.tel}}",
-        "Website: <a href='{{anbieter.url-extern}}' target='_blank'>{{anbieter.url-extern}}</a>"
+        "<h2>Anbieter</h2>",
+        "<p>{{{odp.anbieter.orgName}}}<br>{{odp.anbieter.strasse}}<br>{{odp.anbieter.plzort}}</p>"
       ],
       "erforderlich": "ja"
     },
     "datenschutz": {
       "label": "Datenschutz",
-      "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' anzeigt",
+      "hilfe": "Der Text wird im Menuepunkt Datenschutz angezeigt.",
       "format": {
         "typ": "markdown"
       },
-      "default": "Alle Daten sind geschützt.",
-      "erforderlich": "ja"
-    },
-    "urlDaten": {
-      "label": "URL zum Datensatz im ODP",
-      "hilfe": "Der Datensatz im Open Data Portal mit den Daten der Generic App",
-      "format": {
-        "typ": "url"
-      },
-      "default": "",
-      "beispiel": "",
+      "default": [
+        "_multiline_",
+        "<p>Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers.</p>"
+      ],
       "erforderlich": "ja"
     },
     "fusszeile": {
-      "label": "Fußzeile",
-      "hilfe": "Wird auf der Website unten in der Fusszeile angezeigt.",
+      "label": "Fusszeile",
+      "hilfe": "Wird unten in der App angezeigt.",
       "format": {
-        "typ": "String",
-        "laenge": 50
+        "typ": "string",
+        "laenge": 180
       },
-      "default": "(C) Copyright {{jahr}} | App & Daten: {{anbieter.name}} | App-Entwickler: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
+      "default": "© {{jahr}} | App und Daten: {{odp.anbieter.name}} | Entwicklung: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
       "erforderlich": "ja"
     },
-    "apiUrl": {
-      "label": "URL zur Datensatz-API",
-      "hilfe": "Von dieser API-URL zum Datensatz werden die Ressoucen bezogen",
+    "brandingCSS": {
+      "label": "Zusaetzliches Branding-CSS",
+      "hilfe": "Optionaler CSS-Code fuer die konkrete Instanz.",
+      "default": "",
       "format": {
-        "typ": "url"
+        "typ": "string",
+        "laenge": 10000
+      },
+      "erforderlich": "nein"
+    },
+    "brandingCSSFile": {
+      "label": "Branding-CSS-Datei",
+      "hilfe": "Optionale URL zu einer Branding-CSS-Datei.",
+      "default": "",
+      "format": {
+        "typ": "url",
+        "laenge": 500
+      },
+      "erforderlich": "nein"
+    },
+    "urlDaten": {
+      "label": "URL zum Datensatz",
+      "hilfe": "Katalogseite des tatsaechlich verwendeten Datensatzes.",
+      "default": "",
+      "format": {
+        "typ": "url",
+        "laenge": 500
+      },
+      "erforderlich": "nein"
+    },
+    "apiurl": {
+      "label": "URL zu den Daten",
+      "hilfe": "Von dieser URL werden die Daten der App bezogen.",
+      "format": {
+        "typ": "url",
+        "laenge": 255
       },
       "default": "",
       "beispiel": "",
-      "erforderlich": "ja"
+      "erforderlich": "nein"
     },
-    "sprache": {
-      "label": "Sprache der App",
-      "hilfe": "Angabe der App-Sprache",
+    "proxyAktiv": {
+      "label": "ODAS-Proxy aktivieren",
+      "hilfe": "Steuert direkte oder proxygestuetzte Datenabrufe.",
+      "default": "nein",
       "format": {
         "typ": "dropdown",
-        "optionen": ["de"],
-        "default": "de"
+        "optionen": ["nein", "ja"]
       },
       "erforderlich": "ja"
     }
   }
 }
 ```
+{% endraw %}
 
-## Entwicklung einer ODA
+## Schale 4: Verständlichkeitsebene
 
-Systemvoraussetzungen (empfohlen):
+Schale 4 ist eine optionale Ebene, die Apps für Bürgerinnen und Bürger ohne Datenfachwissen verständlicher macht: Kontext zu Kennzahlen, Methodik-Transparenz, Datenaktualität und weiterführende Links. Sie ist keine ODAS-Pflicht, sondern Teil des Empfohlen-/Ondics-Standards und in nahezu allen Ondics-Apps umgesetzt.
 
-- Ubuntu
-- Docker, Docker-Compose, Make
+Grundprinzip: Jede konfigurierbare Komponente rendert nur, wenn ihr Feld gefüllt ist; ein leerer Wert blendet die Komponente aus. Alle Felder verwenden die [für ODAS-v1 robusten `format.typ`-Werte](#instanz-config) und sind mit `erforderlich: "nein"` deklariert. Die Komponenten sind Opt-in und werden nur aufgenommen, wenn sie für die konkrete App sinnvoll sind.
 
-Die Entwicklung kann mit der `odas-app-generic` begonnen werden.
-Zunächst wird das Repo gecloned:
+### KPI-Kontexttexte
 
-    $ git clone ...
+Für jeden KPI-Slot kann ein Feld `kpiKontext1`, `kpiKontext2`, ... (Typ `string`) einen kurzen Erklärtext liefern. Die Referenz-Apps zeigen ihn über ein kleines ⓘ-Icon zum Aufklappen direkt an der Kennzahl, damit KPI-Reihen kompakt bleiben.
 
-Jetzt bauen wird das Image mit dem Webserver Nginx:
+### Methodikbox
 
-    $ make build
+Eine ausklappbare Sektion im Hauptinhalt erklärt Herkunft, Erhebungsmethode und Limitierungen der Daten. Sie wird aus zwei Feldern gespeist: `datenquelleHinweis` (Typ `markdown`) für den Erklärtext und `datenStand` (Typ `string`) für eine Freitext-Angabe wie "Stand: Januar 2026". `datenStand` ist bewusst ein `string` und kein Datumstyp.
 
-Und starten den Conatiner (derTCP/IP-Port kann in `docker-compose.yml` geändert werden).
+### Datenaktualitäts-Indikator
 
-    $ make up
+Wenn die Datenquelle einen Zeitstempel liefert (z.B. CKAN `metadata_modified` oder der neueste Datensatz), zeigt die App ihn prominent im Inhaltsbereich an. Dafür gibt es **bewusst kein Konfigurationsfeld**: Der Wert wird quellspezifisch aus der API-Antwort abgeleitet. Liefert die Quelle keinen Zeitstempel, entfällt die Anzeige.
 
-Die ODA steht dann unter http://localhost:8090 zur Verfügung.
+### Weiterführende Links
 
-Die App kann wieder gestoppt werden mit
+Das Feld `weiterfuehrendeLinks` (Typ `markdown`) enthält eine vom Portalbetreiber gepflegte Liste verwandter Datensätze oder Hintergrundquellen. Die App rendert daraus einen Abschnitt "Weitere Informationen" am Ende der Seite.
 
-    $ make down
+### "Für wen ist diese App?"
 
-Um eine ODA auszuliefern und in den ODAS einzustellen, wird die zip-Datei ersellt:
+Ein kurzer Absatz innerhalb des bestehenden `beschreibung`-Felds benennt die Zielgruppe und stellt klar, dass kein besonderes Datenfachwissen nötig ist. Dafür wird **kein eigener Config-Key** angelegt.
 
-    $ make zip
+### Datenquellen-Linkliste
 
-Folgende Dateien müssen dazu vorhanden sein:
+Die Datenquellenbeschreibung in `beschreibung` verlinkt dreistufig: Open Data Portal → Datensatz → Ressource(n). Die URLs werden aus den Datenquellen-Configwerten der App abgeleitet (`urlDaten` für die Datensatzseite, `apiurl` für die Ressource), damit verlinkte und tatsächlich geladene Quelle identisch sind. Ebenen ohne Wert werden weggelassen, nicht mit Platzhaltern verlinkt.
 
-```
-odas-app-beispiel/
-├── app/
-│ ├── index.html
-│ ├── app-base.css
-│ ├── app.css
-│ ├── app-base.js
-│ ├── app.js
-│ ├── logo.png
-│ └── favicon.png
-├── assets/
-│ ├── Desktop_Screenshot.png
-│ ├── Mobile_Screenshot.png
-├── Changelog.md
-└── app-package.json
-```
+### Beispiel
 
-Der Ordner "app" sowie der Ordner "assets" dürfen beliebig viele Dateien enthalten.
-
-## Beispiel App Prompt
-
-Prompt:
-
-agiere als softwareentwickler für eine web-app.
-
-die technischen rahmenbedingungen der app sind folgende;
-
-- die web-app besteht aus einem header, einem footer und einem inhaltsbereich.
-  header und footer stehen bereits fest. es muss nur der inhaltsbereich erstellt werden.
-- in dem kommentar des codes-template stehen die übergabeparameter.
-- Mit der app() Funktion soll der Content für die Seite generiert werden. Die übergebene
-  Variable configdata enthählt die apiUrl. Diese enthält einen Link
-  zu einem Datensatz oder einer Datei aus einem Open Data Portal. Falls benötigt
-  soll die App von dort die Daten beziehen.
-- die app() funktion muss in Javascript geschrieben werden.
-- Der generierte Content soll ausschließlich in das enclosingHtmlDivElement geladen werden.
-- Mit der Funktion addToHead können Skripte oder Stylesheets hinzugefügt werden per Javascript
-- Alles innerhalb der beiden Funktionen ist nur BeispielCode und soll ersetzt werden.
-
-die app soll folendes tun:
-
-- anzeige eines Ping Pong Spiels
-- der Spieler (rechts) soll mit den Pfeiltasten auf und ab fahren
-- der Spieler (links) ist der Computer
-- das Spiel soll über die Ganze breite gehen
-
-aufgabe:
-Erstelle die app. fülle dazu die funktion app() {} und ggf. addToHead() {}
-
-hier ist der code-template:
-
-```
-/\*
-
-- Diese Funktion ist für die Inhalte der Startseite
-- zuständig.
--
-- Der umschließebde HTML code ist:
--      <body>
--      <div class="container mt-4" id="main-content">
--          ...
--      </div>
--      </body>
-- Als CSS Framnework wird Bootstrap 5.3 verwendet.
--
-- ConfigData ist ein JSON enthält die Referenz
-- auf die Daten im CKAN Open Data Portal:
--     {
--         "apiurl": "https://open-data-musterstadt.ckan.de/dataset/db92da8e40f9/download/formular_multitemplate.json"
--     }
--
-- @param {Object} configdata - Alle Konfigurationsdaten der App
-- @enclosingHtmlDivElement - HTML Knoten des umschließenden Tags
-- @returns {string | NULL} - darzustellendes HTML oder NULL wenn HTML Knoten direkt manipuliert wurde
-  \*/
-
-function app(configdata = [], enclosingHtmlDivElement) {
-// hier muss der app-code stehen
+```json
+"kpiKontext1": {
+  "label": "KPI-Kontext 1",
+  "hilfe": "Optionaler Erklärtext zum ersten KPI-Wert. Leer = kein Kontext.",
+  "format": { "typ": "string", "laenge": 160 },
+  "default": "",
+  "erforderlich": "nein"
+},
+"datenquelleHinweis": {
+  "label": "Methodik / Datenquelle-Hinweis",
+  "hilfe": "Herkunft, Erhebungsmethode, Limitierungen (Markdown). Leer = ausgeblendet.",
+  "format": { "typ": "markdown" },
+  "default": "Die Werte stammen aus dem **amtlichen Datenbestand** und werden monatlich aktualisiert.",
+  "erforderlich": "nein"
+},
+"datenStand": {
+  "label": "Datenstand",
+  "hilfe": "Freitext-Datum, z.B. 'Stand: Januar 2026'. Leer = ausgeblendet.",
+  "format": { "typ": "string", "laenge": 60 },
+  "default": "",
+  "erforderlich": "nein"
+},
+"weiterfuehrendeLinks": {
+  "label": "Weiterführende Links",
+  "hilfe": "Verwandte Datensätze / Hintergrundquellen (Markdown). Leer = ausgeblendet.",
+  "format": { "typ": "markdown" },
+  "default": "- [Open Data Portal](https://opendata.example.org)\n- [Datensatz im Katalog](https://opendata.example.org/dataset/beispiel)",
+  "erforderlich": "nein"
 }
-
-/\*
-
-- Diese Funktion kann Bibliotheken und benötigte Skripte laden.
-
-- @returns {string} - HTML mit script, link, etc. Tags
-  \*/
-  function addToHead() {
-  }
 ```
 
-## Offene Punkte
+Die `markdown`-Defaults sind hier bereits in Markdown verfasst, konform zum oben beschriebenen Standard. Bestands-Apps verwenden in diesen Feldern noch HTML.
 
-- Mehrsprachigkeit: Nur App oder auch Daten? Statisch oder konfiguriert?
+## Ondics-Standard
 
-## Autor und Kontakt
+Für Apps, die als Referenz, Showcase oder produktiver Ondics-Beitrag entstehen, gelten zusätzliche Qualitätsziele. Dazu gehören:
 
-Kontakt: [info@ondics.de
-](info@ondics.de)
+- App-Logik und Styling klar in `app/app.js` und `app/app.css` trennen.
+- README, `assets/schema.json`, Icon, Screenshots und `CHANGELOG.md` app-spezifisch pflegen.
+- Konfigurationsfelder minimal halten und nur aufnehmen, wenn Portalbetreiber sie wirklich ändern sollen.
+- Schale-4-Komponenten (Verständlichkeitsebene) umsetzen, wo sie für die App sinnvoll sind.
+- Keine Platzhalter-Metadaten in gelieferten Apps, z.B. Template-Entwicklername oder generische Tags.
+- Datenabrufe, Fehlerzustände, leere Daten, Filter, Tabellen, Karten und responsive Darstellung lokal testen.
+- Den ODAS-Proxy lokal nur auf Verdrahtung prüfen; echte Proxy-Antworten werden im ODAS-Live-System geprüft.
 
-Website: [ondics.de
-](https://ondics.de)
-
-(C) 2026 Ondics GmbH
+Diese Punkte sind nicht automatisch harte Anforderungen an alle externen Entwickler. Sie beschreiben unseren Qualitätsanspruch für vorzeigbare ODAS-Apps.
 
 ---
 

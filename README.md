@@ -1,9 +1,17 @@
 # Open Data App Docs
 
-Dokumentation und Spezifikation für Open Data Apps.
+Dokumentation und Spezifikation für Open Data Apps und den Open Data App Store.
 
-Das Repo ist als Github Pages Website verfügbar unter [https://ondics.github.io/open-data-app-docs/odas/
-](https://open-data-apps.github.io/open-data-app-docs/)
+Die Website ist über GitHub Pages verfügbar:
+
+https://open-data-apps.github.io/open-data-app-docs/
+
+Wichtige Quellen:
+
+- Open Data App Store: https://open-data-app-store.de/
+- Open Data Apps auf GitHub: https://github.com/open-data-apps
+- Generic Template: https://github.com/open-data-apps/oda-generic
+
 ## Autor
 
 (C) 2026 [Ondics GmbH](https://ondics.de)
