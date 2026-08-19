@@ -63,7 +63,7 @@ Ein KI-Service kann Apps zentralen Zugriff auf KI-Funktionen ermöglichen, ohne 
 
 ## Touristik-Daten
 
-Servicename: `tourismus-deutschland`
+Servicename: `tourismus-odg`
 
 Mit diesem Service können Touristikdaten aus unterschiedlichen deutschen Touristikhubs bezogen werden.
 Der Service bezieht die Daten über zentrale API-Keys und erspart das individuelle anlegen der API-Keys bei den Anbietern.
