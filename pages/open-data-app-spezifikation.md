@@ -159,7 +159,7 @@ Dieser Wert wird im ODAS interpretiert als:
 
 `format.typ: "markdown"` ist der ODAS-v1-Feldtyp für Rich Text. Felder dieses Typs werden in Markdown verfasst: Überschriften mit `##`, Listen mit `-`, Links mit `[Text](URL)`. ODAS wandelt das Markdown vor der Auslieferung der Konfiguration an die App in HTML um; die App rendert das Ergebnis unverändert (z.B. per `innerHTML`). Portalbetreiber können Felder wie Impressum, Kontakt oder Beschreibung dadurch ohne HTML-Kenntnisse pflegen.
 
-Historisch enthielten einige Paket-Markdown-Felder direktes HTML. Das war eine Übergangsform und ist nicht mehr zulässig. Für neue und überarbeitete Inhalte ist Markdown der Standard; bestehende Apps wurden auf Markdown migriert. Der Linter weist HTML-Tags in Paket-Markdown-Feldern zurück (fokussierter Detektor, keine False-Positives für Markdown-Autolinks), während lokales `odas-config/config.json` als gerendertes HTML weiterhin akzeptiert wird. `odas-config/config.json` ist lokale Runtime-Fixture, darf im jeweiligen App-Repo versioniert sein und wird bei jeder inhaltlichen Spiegel-Änderung mit committet.
+In der `app-package.json` werden diese Felder in Markdown verfasst; im lokalen `odas-config/config.json` steht der bereits gerenderte HTML-Stand.
 
 Statische Beschreibungstexte bleiben im bestehenden Feld `beschreibung`; dafür werden keine zusätzlichen Config-Keys angelegt. Die Datenquellenbeschreibung verlinkt, soweit Werte vorhanden sind, vom Open Data Portal über die Datensatzseite bis zur tatsächlich verwendeten Ressource oder API.
 
@@ -489,7 +489,7 @@ Die Datenquellenbeschreibung in `beschreibung` verlinkt dreistufig: Open Data Po
 }
 ```
 
-Die `markdown`-Defaults sind in Markdown verfasst; HTML-Tags in diesen Paketfeldern sind nicht zulässig. Lokales `odas-config/config.json` bleibt als gerendertes HTML erhalten und wird semantisch gespiegelt.
+Die `markdown`-Defaults sind in Markdown verfasst.
 
 ## Ondics-Standard
 
