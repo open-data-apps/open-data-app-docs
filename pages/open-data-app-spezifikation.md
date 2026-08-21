@@ -315,7 +315,7 @@ Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` Ã
       },
       "default": [
         "_multiline_",
-        "Bei Fragen zur App wenden Sie sich bitte an die im Open Data Portal hinterlegte Kontaktstelle."
+        "Bei Fragen zur App wenden Sie sich bitte an den im Impressum genannten Anbieter."
       ],
       "erforderlich": "ja"
     },
