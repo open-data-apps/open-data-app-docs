@@ -159,7 +159,7 @@ Dieser Wert wird im ODAS interpretiert als:
 
 `format.typ: "markdown"` ist der ODAS-v1-Feldtyp für Rich Text. Felder dieses Typs werden in Markdown verfasst: Überschriften mit `##`, Listen mit `-`, Links mit `[Text](URL)`. ODAS wandelt das Markdown vor der Auslieferung der Konfiguration an die App in HTML um; die App rendert das Ergebnis unverändert (z.B. per `innerHTML`). Portalbetreiber können Felder wie Impressum, Kontakt oder Beschreibung dadurch ohne HTML-Kenntnisse pflegen.
 
-**Hinweis zur Übergangsphase:** Bestehende Apps und Konfigurationen enthalten in Markdown-Feldern teilweise direkt HTML (z.B. `<h2>`, `<p>`, `<ul>`). Das bleibt während der Übergangsphase gültig; für neue und überarbeitete Inhalte ist Markdown der Standard. Das Beispiel-`app-package.json` weiter unten zeigt den aktuellen Stand der Vorlage `oda-generic` und enthält deshalb noch HTML-Defaults.
+In der `app-package.json` werden diese Felder in Markdown verfasst; im lokalen `odas-config/config.json` steht der bereits gerenderte HTML-Stand.
 
 Statische Beschreibungstexte bleiben im bestehenden Feld `beschreibung`; dafür werden keine zusätzlichen Config-Keys angelegt. Die Datenquellenbeschreibung verlinkt, soweit Werte vorhanden sind, vom Open Data Portal über die Datensatzseite bis zur tatsächlich verwendeten Ressource oder API.
 
@@ -315,7 +315,7 @@ Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` �
       },
       "default": [
         "_multiline_",
-        "<p>Bei Fragen zur App wenden Sie sich bitte an die im Open Data Portal hinterlegte Kontaktstelle.</p>"
+        "Bei Fragen zur App wenden Sie sich bitte an die in unserem Impressum genannten Kontaktdaten."
       ],
       "erforderlich": "ja"
     },
@@ -327,10 +327,11 @@ Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` �
       },
       "default": [
         "_multiline_",
-        "<h2>Ueber diese Vorlage</h2>",
-        "<p>Diese App zeigt die wirksame Instanz-Konfiguration.</p>",
-        "<h2>Datenquelle</h2>",
-        "<p>Die Generic-App laedt absichtlich keinen Fachdatenbestand.</p>"
+        "## Ueber diese Vorlage",
+        "Diese App zeigt die wirksame Instanz-Konfiguration.",
+        "",
+        "## Datenquelle",
+        "Die Generic-App laedt absichtlich keinen Fachdatenbestand."
       ],
       "erforderlich": "ja"
     },
@@ -342,8 +343,8 @@ Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` �
       },
       "default": [
         "_multiline_",
-        "<h2>Anbieter</h2>",
-        "<p>{{{odp.anbieter.orgName}}}<br>{{odp.anbieter.strasse}}<br>{{odp.anbieter.plzort}}</p>"
+        "## Anbieter",
+        "{{{odp.anbieter.orgName}}}, {{{odp.anbieter.strasse}}}, {{{odp.anbieter.plzort}}}"
       ],
       "erforderlich": "ja"
     },
@@ -355,7 +356,7 @@ Die Paketversion muss mit dem obersten versionierten Eintrag in `CHANGELOG.md` �
       },
       "default": [
         "_multiline_",
-        "<p>Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers.</p>"
+        "Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers."
       ],
       "erforderlich": "ja"
     },
@@ -488,7 +489,7 @@ Die Datenquellenbeschreibung in `beschreibung` verlinkt dreistufig: Open Data Po
 }
 ```
 
-Die `markdown`-Defaults sind hier bereits in Markdown verfasst, konform zum oben beschriebenen Standard. Bestands-Apps verwenden in diesen Feldern noch HTML.
+Die `markdown`-Defaults sind in Markdown verfasst.
 
 ## Ondics-Standard
 

@@ -104,7 +104,7 @@ Empfohlen ist:
 - Der Datenendpunkt heißt kanonisch `apiurl` und die Datensatzseite `urlDaten`; parallele Legacy-Schreibweisen werden nicht neu eingeführt.
 - `format.typ` verwendet für ODAS-v1 nur `string`, `url`, `dropdown`, `markdown` und `image`.
 
-Felder mit `format.typ: "markdown"` (z.B. `beschreibung`, `kontakt`, `impressum`, `datenschutz`) werden in Markdown verfasst; ODAS wandelt das Markdown vor der Auslieferung der Konfiguration in HTML um, das die Vorlage unverändert rendert. Bestehende Konfigurationen enthalten in diesen Feldern teilweise noch direktes HTML. Das bleibt während der Übergangsphase gültig. Details stehen in der [ODA-Spezifikation]({{ site.baseurl }}/open-data-app-spezifikation).
+Felder mit `format.typ: "markdown"` (z.B. `beschreibung`, `kontakt`, `impressum`, `datenschutz`) werden in Markdown verfasst; ODAS wandelt das Markdown vor der Auslieferung der Konfiguration in HTML um, das die Vorlage unverändert rendert. Im lokalen `odas-config/config.json` stehen diese Inhalte als HTML. Details stehen in der [ODA-Spezifikation]({{ site.baseurl }}/open-data-app-spezifikation).
 
 ## Lokale Entwicklung
 
